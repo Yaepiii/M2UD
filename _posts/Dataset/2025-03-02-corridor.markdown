@@ -20,9 +20,9 @@ This environment exists a highly-repetitive geometric structure, a typical degen
 
 ![figure](../../assets/image/corridor.png)
 
-| Sequence      | Duration (s) | Distance (m) | Difficulty | Description |
-|--------------|-------------|-------------|------------|-------------|
-| corridor_01  | 160.8    | 206.7      | ⭐⭐         | Day, U-shaped, no loop, passes through an atrium, includes slopes, dynamic (2 people), returns to start |
-| corridor_02  | 195.3    | 219.4      | ⭐⭐⭐        | Night, alternating dim lighting, U-shaped, no loop, passes through an atrium, includes slopes, no dynamic elements, returns to start. |
-| corridor_03  | 109.3    | 130.2      | ⭐⭐⭐        | Day, loop, one moving person, returns to start. |
-| corridor_04  | 139.7    | 130.6      | ⭐⭐⭐⭐       | Night, alternating dim lighting, loop, no dynamic elements, returns to start. |
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|--------------|-------------|-------------|------------|-------------|-------------|
+| [corridor_01](https://1drv.ms/u/c/c1806c2e19f2193f/EZpwH7R8jbhGhNE5GD5UEb8B8hPsDXdG3UF4PtkU6xixzg?e=4UBmTP)  | 160.8    | 206.7      | ⭐⭐         | Day, U-shaped, no loop, passes through an atrium, includes slopes, dynamic (2 people), returns to start | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EVvLe0nt1iVEq37C2hLoLRoBq4tfxQXKyMSq_wRvAvv6hQ?e=0Y2MTi) |
+| [corridor_02](https://1drv.ms/u/c/c1806c2e19f2193f/EZpwH7R8jbhGhNE5GD5UEb8B8hPsDXdG3UF4PtkU6xixzg?e=9QABBD)  | 195.3    | 219.4      | ⭐⭐⭐        | Night, alternating dim lighting, U-shaped, no loop, passes through an atrium, includes slopes, no dynamic elements, returns to start. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EeM1hw1q2C5Jm4BEaXw_uFkBSUkI6eZgMIOQlq3DEbJNTg?e=7f1cOw) |
+| [corridor_03](https://1drv.ms/u/c/c1806c2e19f2193f/EZed9H_cXihLvIhc05Qi0r0BF5aHa0mYnNMwUlGvE2gUYQ?e=gHlDzz)  | 109.3    | 130.2      | ⭐⭐⭐        | Day, loop, one moving person, returns to start. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EVy8-vHaGcBMtFiphot7tsgBCNPHvd63Iy2LCJ8Bfb1Dcg?e=0n78Y5) |
+| [corridor_04](https://1drv.ms/u/c/c1806c2e19f2193f/EVuD13wHXlNBpnET9sg-E2MB9n-33E8qyx8RY4LKg2wCVQ?e=or8WnF)  | 139.7    | 130.6      | ⭐⭐⭐⭐       | Night, alternating dim lighting, loop, no dynamic elements, returns to start. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EcES-uZwANVBvM8dTDB7DAMBXBHPjs4Jo5DkPIY20DpMRw?e=bBh2Sy) |
