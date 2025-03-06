@@ -1,0 +1,2036 @@
+---
+title: "算法竞赛进阶指南(第二章)"
+date: 2022-09-05 10:33
+layout: post
+category: ACM
+tags:
+    - markdown
+    - components
+    - extra
+author: Zhenshuai Yin
+description: 算法竞赛进阶指南例题(第二章)
+hidden: false
+image: /assets/images/markdown.jpg
+headerImage: true
+---
+
+# 基本数据结构
+
+## 栈
+
+栈，先入后出的一种数据结构，O(1)时间复杂度内实现出，入栈操作
+
+深度优先搜索(递归)的基本结构
+
+
+
+表达式计算
+
+通过栈可以在O(N)内求出后缀表达式的值
+
+```
+建立一个用于存数的栈,逐一扫描表达式中的元素
+	如是数,则把该数入栈
+	如是运算符,则取栈顶的两个数进行计算,并把结果入栈
+扫描完成后,栈中剩下的那个数就是该表达式的值
+```
+
+中缀表达式转后缀表达式 O(N)
+
+```
+建立一个用于存运算符的栈,逐一扫描该中缀表达式中的元素
+	如果遇到一个数,则输出
+	如果遇到左括号,则把左括号入栈
+	如果遇到右括号,则不断取出栈顶并输出,直到栈顶为左括号,然后把左括号出栈
+	如果遇到运算符,则只要栈顶符号的优先级不低于新符号,就不断取出栈顶并输出,最后把新符号入栈(乘除 > 加减 > 左括号)
+依次取出并输出栈中所有剩余符号,最终输出的序列就是对应的后缀表达式
+```
+
+中缀表达式递归求法  O(N^2) 所以,看他干什么,先转后缀再计算后缀不香吗?
+
+```
+目标:求解S[1~N]
+拆解:求解S[L~R]
+1.在L~R中考虑没有被人和括号包含的运算符
+	若存在加减号,选其中最后一个,分成左右两部分递归,结果相加减,返回 //即,加减优先级小于乘除,所以,先查找加减,再查找乘除
+	若存在乘除号,选其中最后一个,分成左右两部分递归,结果相乘除,返回
+2.若不存在没有被任何括号包含的运算符
+	若首位字符是括号,则递归求解S[l+1~R-1],返回
+	否则说明S[L~R]是一个数,直接返回数值
+```
+
+
+
+
+
+### Push，Pop，GetMin
+
+```c++
+这道题因为用到了后面讲的二叉堆,所以没写,然后等学到了之后,又感觉太简单,所以还是没写/ww
+    二刷可能会补
+```
+
+### Editor
+
+这道题,属于是模拟题,但如果没有找对对应的方式的话,会很麻烦,
+
+因为是对光标的操作,所以,可以采用"对顶栈"的想法,两个栈的相互转移代表了光标的位置
+
+至于最大前缀和的操作,则去维护一下就好,
+
+所以,总结来说,想到了对顶栈的写法之后,简简单单
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+stack<int> a;
+stack<int> b;//建立对顶栈
+int sum[1000005], f[1000005];
+void include(int x)//插入操作
+{
+    a.push(x);
+    sum[a.size()] = sum[a.size() - 1] + x;
+    f[a.size()] = max(f[a.size() - 1], sum[a.size()]);
+}
+void del()//删除操作
+{
+    if (!a.empty())
+        a.pop();
+}
+void left()//左移
+{
+    if (!a.empty())
+    {
+        b.push(a.top());
+        a.pop();
+    }
+}
+void right()//右移
+{
+    if (!b.empty())
+    {
+        a.push(b.top());
+        b.pop();
+        sum[a.size()] = sum[a.size() - 1] + a.top();
+        f[a.size()] = max(f[a.size() - 1], sum[a.size()]);
+    }
+}
+int quick(int k)
+{
+    return f[k];
+}
+int main()
+{
+
+    int n;
+    cin >> n;
+    char c;
+    int q;
+    memset(f, -0x3f, sizeof(f));//这里的0x3f在上章有提到过,是一个在int范围内的极大值,则加了负号就是极小值
+    while (n--)
+    {
+
+        cin >> c;
+        if (c == 'I')
+        {
+            cin >> q;
+            include(q);
+        }
+        else if (c == 'D')
+            del();
+        else if (c == 'L')
+            left();
+        else if (c == 'R')
+            right();
+        else if (c == 'Q')
+        {
+            cin >> q;
+            cout << quick(q) << '\n';
+        }
+    }
+    return 0;
+}
+```
+
+### 进出栈序列问题
+
+这里,纯暴力解法就是枚举,复杂度为2^N,对现在水平可以想到的方法是递推/dp,N^2,在之后还能学到一种数学方法,O(N)
+
+这里我用的是2^N的方法,通过模拟栈的方式来解答
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+int st[30], n, sizee;
+vector<int> ans;
+void dfs(int top, int x)
+{
+    if (sizee >= 20)//如果前20种答案已经找到
+        return;
+    if (x > n && top == 0)//原位置全部入栈,且栈内元素全部出栈
+    {
+        sizee++;
+        for (int i = 0; i < ans.size(); i++)
+            cout << ans[i];
+        puts("");
+        return;
+    }
+    if (top)
+    {
+        int now = st[top];
+        ans.push_back(st[top]);//因为要求字典序,所以优先考虑出栈
+        dfs(top - 1, x);
+        ans.pop_back();
+        st[top] = now;
+    }
+    if (x <= n)//入栈操作
+    {
+        st[top + 1] = x;
+        dfs(top + 1, x + 1);
+    }
+}
+int main()
+{
+    cin >> n;
+    dfs(0, 1);//初始值为,栈内个数为0,且,入栈从1开始
+    return 0;
+}
+```
+
+### Largest Rectangle in a Histogram
+
+单调栈算法 O(N) 借助单调性处理问题的思想,及时排除不可能的选项,保持策略集合的高度有效性和秩序性
+
+根据书上的思路,及时简化一些不可能的情况,保证简化后的图形是一个高度不断非严格递增的柱状图
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+int a[100005], s[100005], w[100005], p;//用数组来模拟栈(s)
+int n;
+long long ans;
+
+void calc()
+{
+    for (int i = 1; i <= n + 1; i++)
+    {
+        if (a[i] > s[p])//如果大于,直接入栈
+            s[++p] = a[i], w[p] = 1;//开始时,每个矩形都是单个的,宽度默认为1
+        else//否则,进行简化运算
+        {
+            int width = 0;
+            while (s[p] > a[i])
+            {
+                width += w[p];
+                ans = max(ans, (long long)width * s[p]);
+                p--;
+            }
+            s[++p] = a[i], w[p] = width + 1;
+        }
+    }
+}
+
+int main()
+{
+
+    cin >> n;
+
+    while (n)
+    {
+        memset(w, 0, sizeof(w));
+        memset(s, 0, sizeof(s));
+        memset(a, 0, sizeof(a));//初始与否,均可
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
+        a[n + 1] = p = 0;//这里是为了防止最后栈中会剩余元素,导致答案不是最优解
+        ans = 0;
+        calc();
+        cout << ans << '\n';
+        cin >> n;
+    }
+    return 0;
+}
+```
+
+## 队列
+
+广度优先搜索的基本结构
+
+queue 					队列
+
+deque 					双端队列
+
+priority_queue 	优先队列(二叉堆)
+
+### Team Queue
+
+用队列嵌套队列即可
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+queue<int> que[1005];//用que[0]来储存队列信息,其余储存每个队列的信息
+int s[1000006];
+
+int main()
+{
+    int t;
+    cin >> t;
+    int num = 1;
+    while (t)
+    {
+        printf("Scenario #%d\n", num++);
+        for (int i = 0; i < 1005; i++)
+            while (!que[i].empty())//非常朴素的清空方式
+                que[i].pop();
+        for (int i = 1; i <= t; i++)
+        {
+            int n;
+            cin >> n;
+            while (n--)
+            {
+                int q;
+                cin >> q;
+                s[q] = i;
+            }
+        }
+        string str;
+        cin >> str;
+        while (str[0] != 'S')
+        {
+            if (str[0] == 'E')
+            {
+                int q;
+                cin >> q;
+                if (que[s[q]].empty())//如果没有队员在排队
+                {
+                    que[0].push(s[q]);
+                    que[s[q]].push(q);
+                }
+                else
+                    que[s[q]].push(q);
+            }
+            else
+            {
+                while (que[que[0].front()].empty())//如果队首的那支队伍已经没人了
+                {
+                    que[0].pop();
+                }
+                cout << que[que[0].front()].front() << '\n';
+                que[que[0].front()].pop();
+            }
+            cin >> str;
+        }
+
+        cin >> t;
+        cout << '\n';
+    }
+
+    return 0;
+}
+```
+
+### 蚯蚓
+
+这里,第一个点是要想出偏移量这个点,以此来简化过程
+
+然后,一个相对朴素的算法是
+
+​	找出最大值
+
+​	按规则运算
+
+​	偏移量+q
+
+重复m轮,就能求出最后的所有值
+
+
+
+但是,因为m过大,所以,需要想到一个时间复杂度更低的算法
+
+​	这里,要考虑到的就是,求最大值,书中的那一大堆数学推理其实可以不看,因为,自己想也可以想出来,所要注意的难点就是,要分为三个队列,
+
+分别维护,然后就可以在常数时间复杂度的前提下得到最大值
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+int n, m, q, u, v, t;
+double p;
+int a[100005];
+int dalta;
+queue<int> aa, bb, cc;
+int main()
+{
+    cin >> n >> m >> q >> u >> v >> t;
+    p = (double)u / (double)v;
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    sort(a, a + n, greater<int>());//将输入的所有蚯蚓长度按从大到小来排序
+    for (int i = 0; i < n; i++)
+        aa.push(a[i]);//初始状态为,aa队列中包含所有蚯蚓,bb和cc为空队列
+    int time = 1;//这是为了判断当前时间是否需要输出
+    if (m)//增加鲁棒性
+    {
+        if (t == 1)
+            cout << aa.front() << ' ';
+        int a1 = floor(p * (double)aa.front());
+        bb.push(a1 - q);
+        cc.push(aa.front() - a1 - q);
+        aa.pop();
+        dalta += q;
+    }
+    while (time < m)
+    {
+        int maxx = -dalta;
+        int jud = 0;
+        if (!aa.empty() && aa.front() >= maxx)
+        {
+            maxx = aa.front();
+            jud = 1;
+        }
+        if (!bb.empty() && bb.front() >= maxx)
+        {
+            maxx = bb.front();
+            jud = 2;
+        }
+        if (!cc.empty() && cc.front() >= maxx)
+        {
+            maxx = cc.front();
+            jud = 3;
+        }//上面三个if是为了求出最大值位置以及确定从何取出
+        if (jud == 1)
+            aa.pop();
+        else if (jud == 2)
+            bb.pop();
+        else if (jud == 3)
+            cc.pop();
+        maxx += dalta;//还原为真实数据
+        int a1 = floor(p * (double)maxx);
+        bb.push(a1 - dalta - q);
+        cc.push(maxx - a1 - dalta - q);
+        time++;
+        if (!(time % t))
+            cout << maxx << ' ';
+        dalta += q;
+    }
+    cout << '\n';
+    for (int i = 1; i <= n + m; i++)//输出函数,因为本身是常数级复杂度,所以,均判断了(直接cv的上面的代码)
+    {
+        int maxx = -dalta;
+        int jud = 0;
+        if (!aa.empty() && aa.front() >= maxx)
+        {
+            maxx = aa.front();
+            jud = 1;
+        }
+        if (!bb.empty() && bb.front() >= maxx)
+        {
+            maxx = bb.front();
+            jud = 2;
+        }
+        if (!cc.empty() && cc.front() >= maxx)
+        {
+            maxx = cc.front();
+            jud = 3;
+        }
+        if (jud == 1)
+            aa.pop();
+        else if (jud == 2)
+            bb.pop();
+        else if (jud == 3)
+            cc.pop();
+        if (!(i % t))//只有在t,2t,...秒内的数据才输出
+            cout << maxx + dalta << ' ';
+    }
+    return 0;
+}
+```
+
+### 双端队列
+
+这道题最重要的点就是分析出来单谷性质和双端队列的对应关系
+
+​	当然,还有就是,思路正确,也就是,想到必须按照数值的大小顺序进行分析
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+pair<int, int> d[200005];
+vector<int> vec[200005];
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> d[i].first;
+        d[i].second = i;
+    }//这里用pair来确定初始的下标值
+    sort(d + 1, d + n + 1);//默认pair排序是根据first值从小到大排序
+    int now = 0;
+    int now_value = d[1].first;
+    for (int i = 1; i <= n; i++)
+    {
+        if (d[i].first == now_value)
+            vec[now].push_back(d[i].second);
+        else
+        {
+            vec[++now].push_back(d[i].second);
+            now_value = d[i].first;
+        }
+    }//这里是预处理一下值相同的情况
+    bool sheng = 0;
+    int cnt = 1;
+    int last = 1e9;
+
+    for (int i = 0; i <= now; i++)//通过minn,maxx,以及sheng来判断单谷的状态以及是否需要变换状态
+    {
+        int minn = 1e9, maxx = 0;
+        for (int j = 0; j < vec[i].size(); j++)
+        {
+            minn = min(minn, vec[i][j]);
+            maxx = max(maxx, vec[i][j]);
+        }
+        if (!sheng)
+        {
+            if (maxx <= last)
+            {
+                last = minn;
+            }
+            else
+            {
+                sheng = 1;
+                last = maxx;
+            }
+        }
+        else if (sheng)
+        {
+            if (minn >= last)
+            {
+                last = maxx;
+            }
+            else
+            {
+                sheng = 0;
+                cnt++;
+                last = minn;//在不符合条件之后cnt才++,即,只有在真正开了下一个双端队列的情况下,cnt才++
+            }
+        }
+    }
+    cout << cnt;
+    return 0;
+}
+```
+
+### 最大子序和
+
+单调队列算法
+
+​	在决策时及时排除不是最优解的选项
+
+在这道题中的体现就是,直接选出所要减去的前缀和,来简化算法
+
+具体应用就是,想到了最优策略集合一定是"下标位置递增,对应的前缀和也递增"的序列(因为如果下标位置增加且前缀和还小的话,肯定是更优解)
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+int l = 1, r = 1;
+int n, m;
+long long ans = -1e9;
+int a[300005];
+long long sum[300005], q[300005];//sum是前缀和,q是队列
+void dddl()
+{
+    q[1] = 0;//这里的初始化为,假设从开始进行
+    for (int i = 1; i <= n; i++)
+    {
+        while (l <= r && q[l] < i - m)
+            l++;
+        ans = max(ans, sum[i] - sum[q[l]]);
+        while (l <= r && sum[q[r]] >= sum[i])
+            r--;
+        q[++r] = i;
+    }
+}
+int main()
+{
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+        sum[i] = sum[i - 1] + a[i];
+    }
+    dddl();
+    cout << ans;
+    return 0;
+}
+```
+
+## 链表与邻接表
+
+根据例题,感觉倒序处理是链表的一个特性,根据可以查找前驱和后继的特性,让倒序处理变得很简单.
+
+
+
+邻接表的话,表示,没看到有什么有用的地方,感觉直接用vector数组来储存不就好了/youl,不过,既然讲了,可能之后有用到的地方吧,那就到时候在总结了
+
+
+
+链表实现形式
+
+指针形式
+
+```c++
+struct Node
+{
+    int value;
+    Node *prev,*next;
+};
+Node *head,*tail;
+void initilaize()
+{
+    head = new Node();
+    tail = new Node();
+    head->next = tail;
+    tail->prev = head;
+}
+
+void insert(Node *p , int val)
+{
+    q = new Node();
+    q->value = val;
+    p->next->prev = q;
+    q->next = p->next;
+    p->next = q;
+    q->prev = p;
+}
+
+void remove(Node *p)
+{
+    p->prev->next = p->next;
+    p->next->prev = p->prev;
+    delete p;
+}
+
+void recycle()
+{
+    while(head != tail)
+    {
+        head = head->next;
+        delete head->prev;
+    }
+    delete tail;
+}
+```
+
+数组形式
+
+```c++
+struct Node
+{
+    int value;
+    int prev , next;
+}node[SIZE];
+int head , tail , tot;
+
+int initialize()
+{
+    tot = 2;
+    head = 1 , tail = 2;
+    node[head].next = tail;
+    node[tail].prev = head;
+}
+
+int insert(int p , int val)
+{
+    q = ++tot;
+    node[q].value = val;
+    node[node[p].next].prev = q;
+    node[q].next = node[p].next;
+    node[p].next = q;
+    node[q].prev = p;
+}
+
+void remove(int p)
+{
+    node[node[p].prev].next = node[p].next;
+    node[node[p].next].prev = node[p].prev;
+}
+
+void clear()
+{
+    memset(node , 0 , sizeof(node));
+    heaad = tail = tot = 0;
+}
+```
+
+### 邻值查找
+
+这道题嘛,当时写的时候,脑子有些混乱,然后卡了好长时间,最后还是看的其他大佬的  [AcWing 136. 邻值查找 - AcWing](https://www.acwing.com/solution/content/2958/)
+
+不过现在回过头来再看的话,感觉还是挺简单的,对链表的灵活应用也有了进一步的认识
+
+这道题的点的话,感觉在于想到通过链表删除后面的点以及从后往前遍历
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<ll, int> Pll; // ll可能爆Int
+const int N = 1e5 + 10;
+Pll a[N], ans[N];     // ans存放输出的两个值
+int l[N], r[N], p[N]; // p存放排序后的元素
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i].first; //记录数值
+        a[i].second = i;   //记录各元素初始位置下标
+    }
+    sort(a + 1, a + n + 1);
+    a[0].first = -5e9, a[n + 1].first = 5e9; //哨兵作为边界
+    for (int i = 1; i <= n; i++)
+    {
+        l[i] = i - 1, r[i] = i + 1; //记录左右相邻元素的位置
+        p[a[i].second] = i;         //记录排序后各元素位置
+    }
+    for (int i = n; i > 1; i--) //从n开始逆序查找最小值
+    {
+        int j = p[i], left = l[j], right = r[j];
+        ll left_value = abs(a[j].first - a[left].first);
+        ll right_value = abs(a[j].first - a[right].first);
+        if (left_value <= right_value)
+            ans[i] = {left_value, a[left].second}; //注意“=”左右元素与其距离相邻事，找最小位置
+        else
+            ans[i] = {right_value, a[right].second};
+        l[right] = left, r[left] = right; //排除掉已经筛选的元素,也就是,逐步去掉i后面的元素
+    }
+    for (int i = 2; i <= n; i++)
+        cout << ans[i].first << ' ' << ans[i].second << endl;
+    return 0;
+}
+```
+
+### Running Median
+
+这道题借鉴大佬依旧,虽然现在的我很想问问当时的自己是哪不会(当然,也知道是哪做错了,之前直接记录的值,没有记录下标,导致在出现了值重复的情况时,出现的是错误答案),总之,就,寄
+
+不过,现在的我看来,这道题还是挺简单的,和上道题思路相似,也用到了倒序处理,然后再删除用过的值
+
+```c++
+//
+// Created by Genes on 2020/12/16.
+//
+// 动态中位数
+#include <algorithm>
+#include <iostream>
+
+#define ios                      \
+    \            
+    ios::sync_with_stdio(false); \
+    cin.tie(nullptr);            \
+    \ 
+    cout.tie(nullptr)
+
+using namespace std;
+
+const int N = 100005;
+
+int a[N];
+int ans[N];
+int p, m;
+
+struct Node
+{
+    //数组模拟链表数据结构
+    int pre, next; //前驱 后继
+    int id;        //在原本序列中的位置
+    int num;       //本身数据
+} A[N];            //存储数据集的链表
+
+bool operator<(const Node &x, const Node &y)
+{
+    return x.num < y.num;
+}
+
+void remove(int x)
+{
+    //删除链表中位置为x的数 就将它的前驱的后继改成它的后继 它的后继的前驱改为它的前驱
+    A[A[x].pre].next = A[x].next;
+    A[A[x].next].pre = A[x].pre;
+}
+
+void solve()
+{
+    int cnt = 0;
+    sort(A + 1, A + 1 + m); //把序列从小到大排序
+    for (int i = 1; i <= m; i++)
+    {
+        a[A[i].id] = i; //将序列原来位置与现在数值位置相绑定 在删除时候便可以直接找到要删除的位置
+    }
+    for (int i = 1; i <= m; i++)
+    {
+        A[i].pre = i - 1, A[i].next = i + 1;
+    }
+
+    int mid = (1 + m) >> 1; //求出当前中位数位置
+
+    ans[++cnt] = A[mid].num; //直接把当前中位数记录下来 作为最后一个输出
+    for (int i = m; i > 1; i -= 2)
+    {
+        //从后往前推 依次删除 每次删除两个
+        int p1 = a[i], p2 = a[i - 1]; //得到删除的两个数据在现在有序序列中的位置
+        if (p1 > p2)
+        {
+            swap(p1, p2); //保证pos1<pos2 方便接下来的操作
+        }
+        if (p1 >= mid)
+        {
+            //如果被删除的pos1是中位数或者在中位数右边，由于pos2>p1 所以中位数向左移
+            mid = A[mid].pre;
+        }
+        else if (p2 <= mid)
+        {
+            //如果被删除的pos2是中位数或者在中位数左边，由于pos2>p1 所以中位数向右移
+            mid = A[mid].next;
+        }
+        //如果一左一右，那么中位数不变
+        ans[++cnt] = A[mid].num; //记录当前中位数 由于是反向推 所以输出的时候也要反向输出
+
+        //执行删除操作
+        remove(p1), remove(p2);
+    }
+    int k = 0;
+    while (cnt--)
+    {
+        ++k;
+        cout << ans[cnt + 1] << " ";
+        if (!(k % 10))
+        {
+            cout << endl;
+        }
+    }
+    if (k % 10)
+    {
+        cout << endl;
+    }
+}
+
+int main()
+{
+    ios;
+    cin >> p;
+    while (p--)
+    {
+        int id;
+        cin >> id >> m;
+        for (int i = 1; i <= m; i++)
+        {
+            cin >> A[i].num;
+            A[i].id = i; //记录该数据原本在序列中的位置
+        }
+        cout << id << " " << (m + 1) / 2 << endl;
+        solve();
+    }
+    return 0;
+}
+```
+
+## Hash
+
+Hash表又称为散列表,一般由Hash函数(散列函数)与链表结构共同实现.
+
+当要对若干复杂信息进行统计时,可以用Hash函数把这些信息映射到一个容易维护的值域内
+
+
+
+字符串Hash
+
+作用 : 把一个任意长度的字符串映射成一个非负整数且冲突概率几乎为0
+
+方式 : 取一固定值P(一般取131/13331),把字符串看作P进制数,并分配一个大于0的数值,代表每种字符(一般分配的数值都远小于P)
+
+​			取一固定值M,求出该P进制数对M的余数,作为该字符串的Hash值(如果是unsigned long long 的话,可以不取M,自动对2^64取模)
+
+​	如果为了进一步确定,可以多取一些恰当的q和M的值,只有结果都为相同的数据才认定为相同数据
+
+```
+已知H(S),H(S+T)
+H(T) = (H(S+T) - H(S)*p^length(T))mod M
+```
+
+O(N)预处理字符串所有前缀Hash值,O(1)查询任何子串的Hash值
+
+### Snowflake Snow Snowflake
+
+这道题书上直接就有答案所以我也是照着敲的
+
+这道题的基本思路就是,先根据和,积进行初步的判断,防止复杂度太高,再对比和积相同的雪花是否形状相同,在学了字符串哈希之后,理论上可以进一步优化,根据字符串哈希的方式进行判断
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+const int SIZE = 100010;
+int n, tot, p = 99991, snow[SIZE][6], head[SIZE], Next[SIZE];
+
+int H(int *a)
+{
+    int sum = 0, mul = 1;
+    for (int i = 0; i < 6; i++)
+    {
+        sum = (sum + a[i]) % p;
+        mul = (long long)mul * a[i] % p;
+    }
+    return (sum + mul) % p;
+}//这里进行一个初步的排除,和或者积不相同的,形状一定不相同
+bool equal(int *a, int *b)
+{
+    for (int i = 0; i < 6; i++)//第一片雪花的起始点
+        for (int j = 0; j < 6; j++)//第二片雪花的起始点
+        {
+            bool eq = 1;
+            for (int k = 0; k < 6; k++)
+                if (a[(i + k) % 6] != b[(j - k + 6) % 6]) //反方向相同
+                    eq = 0;
+            if (eq)
+                return 1;
+            eq = 1;
+            for (int k = 0; k < 6; k++)
+                if (a[(i + k) % 6] != b[(j + k) % 6])  //正方向相同
+                    eq = 0;
+            if (eq)
+                return 1;
+        }
+    return 0;
+}
+
+bool insert(int *a)
+{
+    int val = H(a);
+    for (int i = head[val]; i; i = Next[i])//这里用的是邻接表(但是真的感觉用vector也可以)
+    {
+        if (equal(snow[i], a))
+            return 1;
+    }//直接在插入的时候判断,防止之后出现很多片相同的雪花,浪费时间和空间
+    ++tot;
+    memcpy(snow[tot], a, 6 * sizeof(int));
+    Next[tot] = head[val];
+    head[val] = tot;
+    return 0;
+}
+
+int main()
+{
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        int a[10];
+        for (int j = 0; j < 6; j++)
+            scanf("%d", &a[j]);
+        if (insert(a))
+        {
+            cout << "Twin snowflakes found.";
+            return 0;
+        }
+    }
+    cout << "No two snowflakes are alike.";
+    return 0;
+}
+```
+
+### 兔子与兔子
+
+纯纯字符串Hash的应用
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+unsigned long long f[1000005], p[1000005];//f是前缀和,p是进制
+int main()
+{
+    char s[1000005];
+    int m;
+    cin >> s + 1 >> m;
+    int n = strlen(s + 1);
+    p[0] = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        f[i] = f[i - 1] * 131 + (s[i] - 'a' + 1);
+        p[i] = p[i - 1] * 131;
+    }
+
+    for (int i = 1; i <= m; i++)
+    {
+        int l1, l2, r1, r2;
+        cin >> l1 >> r1 >> l2 >> r2;
+        if (f[r1] - f[l1 - 1] * p[r1 - l1 + 1] == f[r2] - f[l2 - 1] * p[r2 - l2 + 1])
+            cout << "Yes" << '\n';
+        else
+            cout << "No" << '\n';
+    }
+    return 0;
+}
+```
+
+### Palindrome
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+unsigned long long f[1000006], p[1000006], ff[1000006];//f和ff分别是正方向和反方向的前缀和
+char strr[1000006];
+int n;
+int jisuan(int a)
+{
+    int P = 1, q = 0;//采用倍增算法来优化时间复杂度
+    while (P)
+        if (a - (q + P) - 1 >= 0 && a + (q + P) + 1 <= n + 1 && f[a] - f[a - (q + P) - 1] * p[(q + P) + 1] 
+            == ff[a] - ff[a + (q + P) + 1] * p[(q + P) + 1])
+            q += P, P *= 2;
+        else
+            P /= 2;
+    P = 1;
+    int t = 0;
+    while (P)
+        if (a - (t + P) - 1 >= 0 && a + (t + P) <= n + 1 && f[a - 1] - f[a - (t + P) - 1] * p[(t + P)] 
+            == ff[a] - ff[a + (t + P)] * p[(t + P)])
+            t += P, P *= 2;
+        else
+            P /= 2;
+
+    return max(q * 2 + 1, t * 2);//返回最大的回文字符串长度
+}
+
+int main()
+{
+
+    scanf("%s", strr + 1);
+
+    int now = 1;
+    while (1)
+    {
+        if (strr[1] == 'E' && strr[2] == 'N' && strr[3] == 'D')
+            break;
+        n = strlen(strr + 1);
+        p[0] = 1;
+        f[0] = ff[n + 1] = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            f[i] = f[i - 1] * 131 + (strr[i] - 'a' + 1);
+            p[i] = p[i - 1] * 131;
+            ff[n - i + 1] = ff[n - i + 2] * 131 + (strr[n - i + 1] - 'a' + 1);//构造"后缀和"(反方向构造前缀和)
+        }
+        int maxx = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            maxx = max(maxx, jisuan(i));
+        }
+        cout << "Case " << now++ << ": " << maxx << '\n';
+        scanf("%s", strr + 1);
+    }
+    return 0;
+}
+```
+
+### 后缀数组
+
+这道题的思路也就是书上的思路,在字符串比较大小以及得到两个字符串的最小前缀串方面也可以用字符串Hash算法结合倍增(or二分)来判断,具体解法相似,就不再赘述了.
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+char str[301005];
+int sa[300005], h[300005];
+int n;
+unsigned long long f[300005], p[300005];
+int P, q;
+bool cmp(int a, int b)
+{
+    P = 1, q = 0;
+    while (P)//依旧是采用倍增算法优化
+    {
+        if (a + (q + P) - 1 <= n && b + (q + P) - 1 <= n && f[a + (q + P) - 1] - f[a - 1] * p[(q + P)] == f[b + (q + P) - 1] - f[b - 1] * p[(q + P)])
+        {
+            q += P;
+            P *= 2;
+        }
+        else
+            P /= 2;
+    }
+    return str[a + q] < str[b + q];
+}
+
+int jisuan(int a, int b)
+{
+    P = 1, q = 0;
+    while (P)
+    {
+        if (a + (q + P) - 1 <= n && b + (q + P) - 1 <= n && f[a + (q + P) - 1] - f[a - 1] * p[(q + P)] == f[b + (q + P) - 1] - f[b - 1] * p[(q + P)])
+        {
+            q += P;
+            P *= 2;
+        }
+        else
+            P /= 2;
+    }
+    return q;
+}
+
+int main()
+{
+    cin >> str + 1;
+    n = strlen(str + 1);
+    p[0] = 1;
+    f[0] = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        f[i] = f[i - 1] * 131 + (str[i] - 'a' + 1);
+        p[i] = p[i - 1] * 131;
+        sa[i] = i;
+    }
+    sort(sa + 1, sa + n + 1, cmp);
+    for (int i = 1; i <= n; i++)
+        cout << sa[i] - 1 << ' ';
+    cout << '\n';
+    cout << '0';
+    for (int i = 2; i <= n; i++)
+    {
+        cout << ' ' << jisuan(sa[i - 1], sa[i]);
+    }
+    return 0;
+}
+```
+
+## 字符串
+
+KMP模式匹配 O(N+M)
+
+​	作用 : 能在线性时间内判定字符串A[1~N]是否为B[1~M]的子串
+
+
+
+最小表示法 
+
+​	作用 : O(N)内求出一个字符串的最小表示
+
+```c++
+int n = strlen(s + 1);
+for(int i = 1; i <= n;i++) s[n+i] = s[i];
+int i = 1,j = 2,k;
+while(i <= n && j <= n)
+{
+    for(k = 0;k < n && s[i + k] == s[j + k]; k++);
+    if(k == n) break;
+    if(s[i+k] > s[j+k])
+    {
+        i = i + k + 1;
+        if(i == j) i++;
+    }
+    else 
+    {
+        j = j + k + 1;
+        if(i == j) j++;
+    }
+}
+ans = min(i , j);
+```
+
+
+
+```c++
+next数组求法
+    next[1] = 0;
+	for(int i = 2 , j = 0;i <= n; i++)
+    {
+        while(j > 0 && a[i] != a[j+1]) j = next[j];
+        if(a[i] == a[j+1]) j++;
+        next[i] = j;
+    }
+f数组求法
+    for(int i = 1,j = 0; i <= m; i++)
+    {
+        while(j > 0 && (j == n || b[i] != a[j+1])) j = next[j];
+        if(b[i] == a[j+1]) j++;
+        f[i] = j;
+        // f[i] == n 时,为A在B中的一次出现
+    }
+```
+
+### Period
+
+这道题的关键点就在于能想到书中所提到的
+
+​				S[1~i]具有长度为len<i的循环元的充要条件是len能整除i,且S[len+1 ~ i] = S[1~i - len]
+
+​		所以当i-next[i]能整除i时,i-next[i]就是最小循环元(因为一个字符串的任意循环元的长度都必然是最小循环元长度的倍数,所以,如果next[i]不能被整除,也没有"退求其次"的需要)
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+char a[1000010];
+int Next[1000010], n, t;
+void calc_Next()
+{
+    Next[1] = 0;
+    for (int i = 2, j = 0; i <= n; i++)
+    {
+        while (j > 0 && a[i] != a[j + 1])
+            j = Next[j];
+        if (a[i] == a[j + 1])
+            j++;
+        Next[i] = j;
+    }
+}
+
+int main()
+{
+    while (cin >> n && n)
+    {
+        cin >> a + 1;
+        calc_Next();
+        cout << "Test case #" << ++t << '\n';
+        for (int i = 2; i <= n; i++)
+        {
+            if (i % (i - Next[i]) == 0 && i / (i - Next[i]) > 1)
+                cout << i << ' ' << i / (i - Next[i]) << '\n';
+        }
+        cout << '\n';
+    }
+    return 0;
+}
+```
+
+## Trie
+
+字典树 
+
+​	作用 : 用于实现字符串快读检索的多叉树结构
+
+```c++
+初始化:
+	仅包含一个根节点,该点的字符指针均指向空
+插入:
+	字符串S,令指针P起初指向根节点.然后,依次扫描S中的每个字符c:
+		若P的c字符指针指向一个已经存在的结点Q,则令P = Q;
+		若P的c字符指针指向空,则新建一个节点Q,令P的c字符指针指向Q,然后令P = Q
+        当S中的字符扫描完毕时,在当前结点P上标记它是一个字符串的末尾
+检索:
+	字符串S,令指针P起初指向根节点,然后,依次扫描S中的每个字符c:
+		若P的c字符指针指向空,这说明S没有被插入过Trieste,结束检索;
+        若P的c字符指针指向一个已经存在的节点Q,则令P = Q;
+		当S中的字符扫描完毕时,若当前节点P被标记为一个字符串的末尾,则说明S在Trie中存在,否则说明S没有被插入过Trie
+```
+
+```c++
+小写字母构成的字典树代码示例
+    
+int trie[SIZE][26], tot = 1;
+void insert(char* str)
+{
+    int len = strlen(str) , p = 1;
+    for(int k = 0;k < len; k++)
+    {
+        int ch = str[k] - 'a';
+        if(trie[p][ch] == 0) trie[p][ch] = ++tot; // 如果为空节点,则创建新节点,并且自动与父节点相连(p)
+        p = trie[p][ch];
+    }
+    end[p] = true;
+}
+
+bool search(char* str)
+{
+    int len = strlen(str) , p =1;
+    for(int k = 0;k < len; k++)
+    {
+        p = trie[p][str[k] - 'a'];
+        if(p == 0) return false;
+    }
+    return end[p];
+}
+```
+
+### 前缀统计
+
+这道题就,纯纯trie模板题吧,只要知道Trie,在稍微改一改,就能写出来了
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+int trie[1000006][30], tot = 1;
+int End[1000006];
+
+void insert(char *str)
+{
+    int len = strlen(str), p = 1;
+    for (int k = 0; k < len; k++)
+    {
+        int ch = str[k] - 'a';
+        if (trie[p][ch] == 0)
+            trie[p][ch] = ++tot;
+        p = trie[p][ch];
+    }
+    End[p]++;//这里是唯一修改的地方,把bool型的end换成了int型,来处理重复地情况
+}
+long long ans;
+void find(char *str)
+{
+    int len = strlen(str), p = 1;
+    for (int k = 0; k < len; k++)
+    {
+        p = trie[p][str[k] - 'a'];
+
+        if (p == 0)
+            return;
+        ans += End[p];
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+
+    char c[1000006];
+    while (n--)
+    {
+
+        cin >> c;
+        insert(c);
+    }
+    while (m--)
+    {
+        ans = 0;
+        cin >> c;
+        find(c);
+        cout << ans << '\n';
+    }
+    return 0;
+}
+```
+
+### The XOR Largest Pair
+
+这道题,初看题干,我刚开始还在疑惑和字典树有什么关系,看了思路才意识到,原来可以做二进制字典树,评价为,优秀
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+long long a;
+int trie[3200005][2], tot = 1;
+
+void insert(long long val)
+{
+    int p = 1;
+    for (int k = 31; k >= 0; k--)
+    {
+        int ch = ((val >> k) & 1);
+        if (trie[p][ch] == 0)
+            trie[p][ch] = ++tot;
+        p = trie[p][ch];
+    }
+}
+long long ans;
+void find(long long vall)
+{
+    int p = 1;
+
+    for (int k = 31; k >= 0; k--)
+    {
+        int t = p;
+        p = trie[p][(((vall >> k) & 1) + 1) % 2];//这里是标准化一下,属于是自认为的简化代码操作
+        if (p == 0)
+        {
+            p = trie[t][(vall >> k) & 1];
+        }
+        else
+        {
+            ans += (1 << k);
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    long long sum = 0;
+    cin >> a;
+    insert(a);
+    for (int i = 1; i < n; i++)
+    {
+        cin >> a;
+        ans = 0;
+        find(a);
+        insert(a);
+        sum = max(sum, ans);
+    }
+    cout << sum;
+    return 0;
+}
+```
+
+### The XOR Longest Path
+
+感觉这道题的难点在于,要想到x到y的路径上的所有边权xor的结果就等于D[x] xor D[y]这一点,这,类似于前缀和?
+
+然后下面的思路就是和上题相同,找到两个数,使得xor的结果最大
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Tree
+{
+    pair<int, long long> father;
+    vector<int> childen;
+    long long d;
+} tree[100005];
+
+int n;
+
+bool jud[100005];
+int gen;
+
+int trie[3200005][2], tot = 1;
+
+void dft(int now)
+{
+    if (now != gen)
+    {
+        tree[now].d = tree[tree[now].father.first].d xor tree[now].father.second;
+    }
+    for (int i = 0; i < tree[now].childen.size(); i++)
+        dft(tree[now].childen[i]);
+}//深度优先遍历操作
+
+void insert(long long val)
+{
+    int p = 1;
+    for (int k = 31; k >= 0; k--)
+    {
+        int ch = ((val >> k) & 1);
+        if (trie[p][ch] == 0)
+            trie[p][ch] = ++tot;
+        p = trie[p][ch];
+    }
+}
+long long ans;
+void find(long long vall)
+{
+    int p = 1;
+
+    for (int k = 31; k >= 0; k--)
+    {
+        int t = p;
+        p = trie[p][(((vall >> k) & 1) + 1) % 2];
+        if (p == 0)
+        {
+            p = trie[t][(vall >> k) & 1];
+        }
+        else
+        {
+            ans += (1 << k);
+        }
+    }
+}
+
+int main()
+{
+    cin >> n;
+    for (int i = 1; i < n; i++)
+    {
+        long long u, v, w;
+        cin >> u >> v >> w;
+        jud[v] = 1;
+        tree[v].father = {u, w};
+        tree[u].childen.push_back(v);
+    }
+
+    for (int i = 0; i < n; i++)
+        if (!jud[i])
+        {
+            gen = i;
+            break;
+        }//因为需要从跟开始遍历,所以,加了一个jud数组
+    tree[gen].d = 0;
+    dft(gen);
+    long long sum = 0;
+    insert(tree[0].d);
+    for (int i = 1; i < n; i++)
+    {
+        ans = 0;
+        find(tree[i].d);
+        insert(tree[i].d);
+        sum = max(sum, ans);
+    }
+    cout << sum;
+    return 0;
+}
+```
+
+## 二叉堆
+
+一种支持插入,删除,查询最值的数据结构
+
+逐层从左到右为树中的节点依次编号,把此编号作为节点在数组中的下标,
+
+​	父节点编号等于子节点编号除以2,左子节点编号等于父子节点编号乘2,右子节点编号等于父节点编号乘2加1
+
+实现方式
+
+```c++
+//Insert
+    //向二叉堆中插入一个带有权值val的新节点,
+    //把这个新节点直接放在储存二叉堆的数组末尾,然后通过交换的方式向上调整,
+    //时间复杂度为堆的深度,即O(logN)
+    int heao[SIZE], n;
+    void up(int p)
+    {
+        while(p > 1)
+        {
+            if(heap[p] > heap[p/2])
+            {
+                swap(heap[p] , heap[p/2]);
+                p/=2;
+            }
+            else break;
+        }
+    }
+    void insert(int val)
+    {
+        heap[++n] = val;
+        up(n);
+    }
+
+//GetTop
+    //获取二叉堆顶的权值(最大值/最小值)
+    int GetTop()
+    {
+        return heap[1];
+    }
+
+//Extract
+    //把堆顶从二叉堆中移除,
+    //把堆顶heap[1]与末尾结点heap[n]交换,然后移除数组末尾节点(n--),把堆顶通过交换向下调整
+    //时间复杂度为堆的深度,即O(logN)
+    void down(int p)
+    {
+		int s = p * 2;
+        while(s <= n)
+        {
+            if(s < n && heap[s] < heap[s+1]) s++;
+            if(heap[s] > heap[p])
+            {
+                swap(heap[s] , heap[p]);
+                p = s, s = p*2;
+            }
+            else break;
+        }
+    }
+	void Extract()
+    {
+        heap[1] = heap[n--];
+        down(1);
+    }
+
+//Remove
+    //把存储在数组下标为p位置的节点从二叉堆中删除
+    void Remove(int k)
+    {
+        heap[k] = heap[n--];
+        up(k) , down(k);
+    }
+```
+
+当然,准确的说,上面的是模拟过程,如果要说简单的话,那就是直接一个优先队列即可,方式,和sort相似,排序方式为第三个参数(or第二个)忘了
+
+
+
+Huffman树(哈夫曼树)
+
+解决
+
+​	构造一棵包含n个叶子节点的k叉树,其中第i个叶子节点带有权值wi,要求最小化wi*li的和(li为第i个叶子节点到根节点的距离)
+
+二叉Huffman树
+
+```
+建立一个小根堆,插入这n个叶子节点的权值
+从堆中取出(并删除)两个最小的权值w1和w2,令ans= w1 + w2
+建立一个新的树子节点w1+w2,令其成为w1和w2节点的父亲
+在堆中插入权值w1 + w2
+重复2-4行,直至堆的大小为1
+```
+
+k叉Huffman树
+
+​	要使叶子节点的个数n满足(n-1)mod(k-1) = 0(不足补0),其余相同
+
+### Supermarket
+
+感觉这道题的思路主要难点在于,贪心的构思吧
+
+​	对于每个时间t,应该在保证不卖出过期商品的前提下,尽量卖出利润前t大的商品
+
+​		把商品按照过期时间排序,建立一个初始为空的小根堆,权值为利润,然后依次扫描
+
+​			若当前商品的过期时间t等于当前堆中的商品个数,若此时当前商品的利润大于堆顶权值,则替换堆顶(也就是,用利润更高的来替换)
+
+​				至于为什么没有涉及到t小于当前个数的,那是因为不可能,按照过期时间排序后,即使是过期顺序排列紧密,那也是一天一个,最多是等于,如果有相同过期时间的,那就肯定是等于,然后就需要替换
+
+​			若当前商品过期时间大于堆中商品个数,则直接插入(能多买一个就多买一个了,即使权重很低,那就之后再替换嘛)
+
+总结 : 贪心优秀,贪心博大精深
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+int nn, n;
+pair<int, int> pairr[10004];//把过期时间和利润放在一起,方便排序
+
+int heap[10004];
+void up(int p)
+{
+    while (p > 1)
+    {
+        if (heap[p] < heap[p / 2])
+        {
+            swap(heap[p], heap[p / 2]);
+            p /= 2;
+        }
+        else
+            break;
+    }
+}
+
+void insert(int val)
+{
+    heap[++n] = val;
+    up(n);
+}
+
+void down(int p)
+{
+    int s = p * 2;
+    while (s <= n)
+    {
+        if (s < n && heap[s] > heap[s + 1])
+            s++;
+        if (heap[s] < heap[p])
+        {
+            swap(heap[s], heap[p]);
+            p = s, s = p * 2;
+        }
+        else
+            break;
+    }
+}
+
+void extract()
+{
+    heap[1] = heap[n--];
+    down(1);
+}
+
+void remove(int k)
+{
+    heap[k] = heap[n--];
+    up(k), down(k);
+}//自闭的手敲二叉堆,到最后才意识到可以直接用优先队列
+
+bool cmp(pair<int, int> p1, pair<int, int> p2)
+{
+    return p1.second < p2.second;
+}
+
+int main()
+{
+
+    while (cin >> nn)
+    {
+        n = 0;
+        for (int i = 1; i <= nn; i++)
+            cin >> pairr[i].first >> pairr[i].second;
+        sort(pairr + 1, pairr + nn + 1, cmp);
+        insert(pairr[1].first);
+        for (int i = 2; i <= nn; i++)
+        {
+            if (pairr[i].second == n)
+            {
+                if (pairr[i].first > heap[1])
+                {
+                    extract();
+                    insert(pairr[i].first);
+                }
+            }
+            else if (pairr[i].second > n)
+            {
+                insert(pairr[i].first);
+            }
+        }
+        long long ans = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            ans += heap[i];
+        }
+        cout << ans << endl;
+    }
+    return 0;
+}
+```
+
+### Sequence
+
+这道题,乍一看就感觉比较难,嗯,写起来也确实比较复杂,而且还是在有思路的情况下
+
+​	至少,之前的我是想不到这个可以和二叉堆有联系的,但是,看完思路感觉又确实如此,感觉就是,分治思想吧,先考虑简单的两个序列,看看有无解决方案,再想M个的事情,两个的话,想最小的N个和是哪些,然后想到这里的话,再想肯定这N个和就是可能选取的N个和,然后再合并为一个,然后再用相同的方式计算M个,就很,优秀.
+
+​	两两合并的话,确实是可以想到用二叉堆,因为每次就从可能的序列中选取最小的值,就纯纯二叉堆,不过要注意的一点是有重复,按照书中给出的方法,就是,储存三元组,如果j+1了,就变成true了,然后就不插入i+1了,这一点也非常优秀,类似于,i主行,j主列?
+
+​	然后就,用相同的方式,计算M个序列的前N小个和了
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+int t, m, n;
+int a[2005];
+int ans[2005], temp[2005];
+int num;
+
+struct sanyuan
+{
+    int i;
+    int j;
+    bool jud = false;
+} heap[2005]; // 三元组的二叉堆
+
+void up(int p)
+{
+    while (p > 1)
+    {
+        if (ans[heap[p].i] + a[heap[p].j] < ans[heap[p / 2].i] + a[heap[p / 2].j])
+        {
+            swap(heap[p], heap[p / 2]);
+            p /= 2;
+        }
+        else
+            break;
+    }
+}
+void insert(sanyuan val)
+{
+    heap[++num] = val;
+    up(num);
+}
+void down(int p)
+{
+    int s = p * 2;
+    while (s <= num)
+    {
+        if (s < num && ans[heap[s].i] + a[heap[s].j] > ans[heap[s + 1].i] + a[heap[s + 1].j])
+            s++;
+        if (ans[heap[s].i] + a[heap[s].j] < ans[heap[p].i] + a[heap[p].j])
+        {
+            swap(heap[s], heap[p]);
+            p = s, s = p * 2;
+        }
+        else
+            break;
+    }
+}
+void extract()
+{
+    heap[1] = heap[num--];
+    down(1);
+}
+void remove(int k)
+{
+    heap[k] = heap[num--];
+    up(k), down(k);
+}
+
+int main()
+{
+    cin >> t;
+    while (t--)
+    {
+        cin >> m >> n;
+        for (int i = 1; i <= n; i++)
+            cin >> ans[i]; // 1 2 3
+        sort(ans + 1, ans + n + 1);
+        for (int tt = 1; tt < m; tt++)
+        {
+            for (int j = 1; j <= n; j++)
+                cin >> a[j];
+            sort(a + 1, a + n + 1); // 2 2 3
+            num = 0;
+            sanyuan san;
+            san.i = 1;
+            san.j = 1;
+            san.jud = false;
+            insert(san);//这里是最小值,简化代码
+            for (int i = 1; i <= n; i++)
+            {
+                temp[i] = ans[heap[1].i] + a[heap[1].j];
+                if (!heap[1].jud)
+                {
+                    heap[1].i++;
+                    insert(heap[1]);
+                    heap[1].i--;
+                }
+                heap[1].j++;
+                heap[1].jud = 1;
+                insert(heap[1]);
+                heap[1].j--;
+                extract();
+            }
+            for (int i = 1; i <= n; i++)
+            {
+                ans[i] = temp[i];
+            }//这里是把每次的两个序列的前N个和复制到ans中(可能有函数,但懒得查)
+        }
+
+        for (int i = 1; i <= n; i++)
+            cout << ans[i] << ' ';
+        cout << '\n';
+    }
+    return 0;
+}
+```
+
+### 数据备份
+
+这道题,先吐槽一下,debug了好几个小时,然后也是因为自己写的比较麻烦,一直到最后也没找出来哪里出错了,然后直接cv的题解(感觉应该是边界问题)
+
+[AcWing 147. 数据备份 - AcWing](https://www.acwing.com/solution/content/7282/)
+
+这道题,看似不难,只是要求出最小距离之和,但是,实则比较麻烦,因为相邻的两个配对不能同时被选(当然,能想出配对也是一个点)
+
+​	然后就需要,推理,得到选择最小值或者同时选择最小值两边的值,在想到这一层之后,还要找到递推的方法,(书上有),感觉就很优秀,
+
+​	可以说是一道模板题,作为之后处理类似问题的方法和思路
+
+```c++
+#include <bits/stdc++.h>
+#define int long long//这里要注意到的就是,int main,要改为signed main
+#define INF 1e18
+using namespace std;
+inline int read()//这个函数感觉就,后期需要在初始化文件的时候就加上,用来代替cin(比较慢),防止卡cin(如果用的VScode的话,可以在cpp.json中进行配置)
+{
+    int x = 0, f = 1;
+    char ch = getchar();
+    while (ch < '0' || ch > '9')
+    {
+        if (ch == '-')
+            f = -1;
+        ch = getchar();
+    }
+    while (ch >= '0' && ch <= '9')
+    {
+        x = (x << 3) + (x << 1) + (ch ^ 48);
+        ch = getchar();
+    }
+    return x * f;
+}
+const int N = 100007;
+int n, K, ans;
+int D[N], L[N], R[N], val[N];
+bool vis[N];
+priority_queue<pair<int, int>> q;//真的,看到这里,我是自闭的,总感觉之前自己白敲这么多代码了(默认小根堆?我记得不是默认大根堆吗,难道记错了?哦,好像是因为,赋值时是按负值给的,也可以选择加第二个参数,自定义比较规则)
+signed main()//#define int long long 而 main 函数必须返回一个 int 值，所以不能使用 int main()。
+//那怎么办呢？通常使用 signed main，因为 signed 等效替代于 signed int，也就是有符号整型，这与 int 别无二致
+//大佬写法
+{
+    n = read(), K = read();
+    int last = read();
+    for (int i = 2, x; i <= n; ++i)
+        x = read(), D[i - 1] = x - last, last = x;
+    for (int i = 1; i < n; ++i)
+        val[i] = D[i], L[i] = i - 1, R[i] = i + 1, q.push(make_pair(-val[i], i));
+    val[0] = val[n] = INF;//这里,要设置左右哨兵
+    for (int i = 1; i <= K; ++i)
+    {
+        while (vis[q.top().second])
+            q.pop();
+        int x = -q.top().first, pos = q.top().second;
+        q.pop();
+        // printf("x = %d\n",x);
+        ans += x;
+        int l = L[pos], r = R[pos];
+        L[pos] = L[l], R[pos] = R[r];
+        R[L[pos]] = pos, L[R[pos]] = pos;
+        vis[l] = vis[r] = 1;
+        val[pos] = val[l] + val[r] - x;
+        // printf("updata x = %d\n",val[pos]);
+        q.push(make_pair(-val[pos], pos));//这里就是书上说的,出栈加入栈操作
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+
+### 合并果子
+
+一道二叉Huffman树的模板题
+
+最终消耗的体力总和一定为每堆果子乘它参与合并的次数
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+int heap[10004], tot;
+
+void up(int p)
+{
+    while (p > 1)
+    {
+        if (heap[p] < heap[p / 2])
+        {
+            swap(heap[p], heap[p / 2]);
+            p /= 2;
+        }
+        else
+            break;
+    }
+}
+
+void insert(int val)
+{
+    heap[++tot] = val;
+    up(tot);
+}
+
+void down(int p)
+{
+    int s = p * 2;
+    while (s <= tot)
+    {
+        if (s < tot && heap[s] > heap[s + 1])
+            s++;
+        if (heap[s] < heap[p])
+        {
+            swap(heap[s], heap[p]);
+            p = s, s = p * 2;
+        }
+        else
+            break;
+    }
+}
+
+void extract()
+{
+    heap[1] = heap[tot--];
+    down(1);
+}
+
+void remove(int p)
+{
+    heap[p] = heap[tot--];
+    up(p), down(p);
+}
+
+int main()
+{
+    int n;
+    int a;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a;
+        insert(a);
+    }
+    n--;
+    int ans = 0;
+    while (n--)
+    {
+        int b;
+        a = heap[1];
+        extract();
+        b = heap[1];
+        extract();
+        insert(a + b);
+        ans += a + b;
+    }
+    cout << ans;
+    return 0;
+}
+```
+
+### 荷马史诗
+
+应该是一道多叉Huffman的模板题,但是,因为当时的状态比较差,所以卡了好长时间,然后最后就不想写了,查的题解
+
+[AcWing 149. 荷马史诗(二叉堆 Huffman树 贪心) - AcWing](https://www.acwing.com/solution/content/29965/)
+
+
+
+```c++
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+typedef long long LL;
+typedef pair<LL, int> PLI;
+
+const int N = 1e5 + 10;
+
+int n, m;
+priority_queue<PLI, vector<PLI>, greater<PLI>> heap;
+
+int main()
+{
+    cin >> n >> m;
+    for (int i = 0; i < n; i++)
+    {
+        LL w;
+        cin >> w;
+        heap.push({w, 0});
+    }
+
+    while ((n - 1) % (m - 1))
+    {
+        heap.push({0ll, 0});
+        n++;
+    }
+
+    LL res = 0;
+    while (heap.size() > 1)//这里体现的是多叉Huffman树的精髓
+    {
+        LL sum = 0;
+        int depth = 0;
+        for (int i = 0; i < m; i++)//遍历子节点,并pop(因为子节点已经合并了),然后在push入新节点作为他们的父节点
+        {
+            sum += heap.top().first;
+            depth = max(depth, heap.top().second);
+            heap.pop();
+        }
+        res += sum;
+        heap.push({sum, depth + 1});
+    }
+
+    cout << res << endl;
+    cout << heap.top().second << endl;
+    return 0;
+}
+```
+
+时隔20天,总算,第二章也学完了,进度的话,还好,问题不大/ww
+
+2022年9月9日
