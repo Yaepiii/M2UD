@@ -1,0 +1,36 @@
+---
+title: "Smoke"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Smoke
+---
+
+# Smoke
+
+Artificial smoke is generated in the gobi scenario, and robot is deployed to navigate through it to evaluate SLAM algorithm performance under smoke occlusion. Additionally, the lack of distinguishable features further make trouble on SLAM algorithms.
+
+![figure](../../assets/image/smoke.png)
+
+| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|------------|-------------|-------------|------------|-------------|-------------|
+| smoke_01   | 263.5       | 245.9       | ⭐⭐        | Two small loops, terrain variation, slightly open environment, white smoke, minimal visual impact. | ground truth |
+| smoke_02   | 223.6       | 240.8       | ⭐⭐⭐       | Small loop, extreme terrain variation, slightly open environment, black smoke, significant visual impact. | ground truth |
+| smoke_03   | 388.6       | 419.0       | ⭐⭐⭐       | Two small loops, more extreme terrain variation, open environment, white smoke, minimal visual impact. | ground truth |
+| smoke_04   | 279.8       | 259.2       | ⭐⭐⭐⭐      | Small loop, more extreme terrain variation, open environment, white smoke, severe visual obstruction. | ground truth |
+
+
+
+
+
+
+
+
