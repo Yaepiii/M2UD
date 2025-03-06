@@ -27,3 +27,5 @@ For outdoor sequences, the original absolute poses of the robots are obtained fr
 ## Mapping Ground Truth
 
 To advance research and development in mapping algorithms, a FARO Focus Premium 70M [3D laser scanner](https://www.weiyang3d.com/en/h-col-124.html) is utilized to capture a 3D scene map of a park and a dormitory building, as illustrated in Figure 8. This 3D laser scanner has a maximum visual range of 614 m and is capable of capturing 500,000 points per second, achieving a ranging error of $\pm$ 1 mm and a 3D positioning accuracy of 3.5 mm at a distance of 25 m. We match the scans offline and manually remove dynamic ghosting to construct an accurate global map ground truths. Additionally, several handheld and wheeled robot sequences additionally provided for these scenarios, named as "[mapping](https://1drv.ms/f/c/c1806c2e19f2193f/En98Iep0qBdMlo8iv0jsiFABJzSGdj5hNy8faTAonoD9jw?e=KtuRLW)" in the open-source dataset, are specifically intended for map building and evaluation, whose routes are designed based on the scanning trajectories used during ground truth construction.
+
+![figure](../../assets/image/figure8.png)
