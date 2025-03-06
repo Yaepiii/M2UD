@@ -1,0 +1,38 @@
+---
+title: "Sequence Characteristics"
+layout: post
+date: 2025-03-04 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Sequence Characteristics
+---
+
+# Sequence Characteristics
+
+![figure](../../assets/image/figure6.png)
+
+Our dataset comprises 58 sequences with specifically designed routes, categorized into 12 types based on collection scenarios or characteristics, with difficulty levels assigned for user reference. Figure 6 presents a first-person view of the robot during data recording, illustrating that the sequences contain common application scenarios of ground robots as well as challenging conditions, including complete darkness (Figure 6 (A)), textureless (Figure 6 (B)), lift (Figure 6 (C)), overexposure (Figure 6 (D), (E)), reflections (Figure 6 (F)–(H)), extreme weather conditions (Figure 6 (I)–(K)), aggressive motion (Figure 6 (L)–(O)), dynamic objects (Figure 6 (P)–(T)), and open areas or highly-repetitive structures (Figure 6 (U)–(Y)). Our dataset offers trajectories and two maps ground truth, which can be directly utilized for evaluating localization and mapping in SLAM. The details of the 12 categories are presented in the following table.
+
+| Scene      | Number | Size (GB) | Total Time (s) | Total Distance (m) | Average Difficulty       | Description |
+|------------|--------|-----------|----------------|---------------------|--------------------------|-------------|
+| open       | 8      | 60        | 5055.7         | 5596.7              | ⭐⭐                   | Lakeside and open field, sparse features, no dynamics, uneven-terrain. |
+| rural      | 2      | 6.32      | 3111.9         | 3835.5              | ⭐⭐⭐                   | Unstable features, sparsely populated, flat-terrain. |
+| urban      | 5      | 100       | 6577.5         | 7770.0              | ⭐⭐⭐⭐                   | High dynamics, various types of vehicles, flat-terrain. |
+| aggressive | 7      | 38.8      | 2075.8         | 2080.9              | ⭐⭐⭐                   | Continuous aggressive motion, uneven-terrain. |
+| campus     | 6      | 51.3      | 2728.2         | 3152.3              | ⭐⭐                   | Research institute campus, structured environment, few dynamic objects, flat-terrain. |
+| park       | 6      | 61.7      | 2904.6         | 3205.2              | ⭐⭐                   | Unstructured environment, few dynamic objects, uneven-terrain. |
+| extreme    | 4      | 0.97      | 1669.5         | 1976.8              | ⭐⭐⭐                   | Severe dust, snow, few dynamics, flat-terrain. |
+| mixed      | 5      | 116       | 9659.8         | 12161.7             | ⭐⭐⭐⭐⭐                   | Mixed scenarios such as indoor+outdoor, urban+park, parking+plaza, featuring characteristics of the mixed categories. |
+| smoke      | 4      | 16.8      | 1155.5         | 1164.9              | ⭐⭐⭐                   | Navigating through smoke, visual occlusion, open scenario with sparse features, no dynamics, uneven-terrain. |
+| parking    | 3      | 16.8      | 1919.9         | 2810.6              | ⭐                  | Indoor, highly structured environment, rich features, few dynamics, flat-terrain. |
+| plaza      | 4      | 41.5      | 4329.1         | 6566.8              | ⭐⭐⭐                   | Indoor, multi-layer, lifts, high-dynamic crowds, flat-terrain. |
+| corridor   | 4      | 5.41      | 605.1          | 686.9               | ⭐⭐⭐                   | Indoor, highly repetitive geometric structures, no dynamics, flat-terrain. |
+| **total**  | **58** | **515.6** | **41792.6**    | **51008.3**         | **⭐⭐⭐**               | A total of 58 sequences covering common ground robot application scenarios and challenging elements. |
+
