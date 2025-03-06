@@ -1,0 +1,30 @@
+---
+title: "Extreme"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Extreme
+---
+
+# Extreme
+
+The sequences include severe sandstorm and snowfall conditions (rarely found in most wheeled robot datasets), which enables the evaluation of algorithm performance under extreme weather conditions.
+
+![figure](../../assets/image/extreme.png)
+
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|--------------|-------------|-------------|------------|-------------|-------------|
+| extreme_01   | 417.2       | 514.8       | ⭐⭐        | Nighttime recording, strong wind/sandstorm, few dynamic elements, rural scene, noisy features (surrounding plants shaking violently, unstable features). | ground truth |
+| extreme_02   | 299.8       | 431.2       | ⭐⭐⭐       | Severe sandstorm + light rain, unstructured scene, few dynamic elements (2 people / 1 car), uneven terrain. | ground truth |
+| extreme_03   | 412.9       | 442.7       | ⭐⭐⭐       | Nighttime snowfall, GR flowerbed route. | ground truth |
+| extreme_04   | 539.6       | 588.1       | ⭐⭐⭐       | Nighttime light snow, circling a building, multiple forward and reverse loops. | ground truth |
+
+
