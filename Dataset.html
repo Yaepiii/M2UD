@@ -7,7 +7,7 @@ title: ACM
 		<p class="text-center">Nothing published yet!</p>
 	{% else %}
 		{% for post in site.posts %}
-			{% if post.category == 'ACM' %}
+			{% if post.category == 'Dataset' %}
 				{% if post.hidden != true %}
 					{% include blog-post.html %}
 				{% endif %}
