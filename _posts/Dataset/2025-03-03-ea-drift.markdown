@@ -26,8 +26,6 @@ where, $S$ represents the rigid body transformation obtained as the least square
 
 The following table is the sequence for benchmarking:
 
-<div class="center">
-
 | Sequence     | Duration (s) | Distance (m) | Difficulty     |
 |-------------|-------------|-------------|---------------|
 | open_08     | 2511.4      | 2789.9      | ⭐⭐⭐⭐⭐       |
@@ -42,8 +40,6 @@ The following table is the sequence for benchmarking:
 | parking_01  | 606.2       | 885.7       | ⭐       |
 | plaza_04    | 2215.9      | 3713.8      | ⭐⭐⭐       |
 | corridor_04 | 139.7       | 130.6       | ⭐⭐⭐       |
-
-</div>
 
 
 The qualitative results are presented below, and more results can be found in our paper.
