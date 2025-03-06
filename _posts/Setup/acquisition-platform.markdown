@@ -10,7 +10,7 @@ tag:
 - extra
 hidden: false
 category: Setup
-author: Yanpengjia
+author: Yanpeng Jia
 description: Acquisition Platform
 ---
 
