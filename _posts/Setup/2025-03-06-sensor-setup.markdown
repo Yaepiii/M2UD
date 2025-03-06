@@ -28,4 +28,4 @@ We argue that while smooth motion, clear images, and dense point clouds obviousl
 
 4. **GNSS:** The [M68UGI-G GNSS](https://www.devecent.com/M68.html) receiver is utilized to acquire raw positioning data, including GPS satellite count, timestamps, signal quality, and other relevant information at 5 Hz. By leveraging RTK technology, high-precision robot positions are estimated as ground truth for the trajectory, achieving a horizontal accuracy of $\pm(8mm+1ppm)$ and a vertical accuracy of $\pm(15mm+1ppm)$. According to the accuracy test report provided by the manufacturer (Figure 3), the repeatability positioning accuracy is $\pm1.5cm$.
 
-![figure](../../assets/image/figure3.png)
+![figure](../../assets/image/figure3.png#pic_center)
