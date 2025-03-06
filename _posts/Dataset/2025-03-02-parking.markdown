@@ -18,13 +18,13 @@ description: Parking
 
 Three sequences are recorded in the underground parking to validate SLAM performance in this environment, where various loops are specifically designed to support research on indoor SLAM algorithms.
 
-![figure](../../assets/image/parking.png)
+![figure](../../assets/image/parking.png#pic_center)
 
 | Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
 |------------|-------------|-------------|------------|-------------|-------------|
-| parking_01 | 606.2       | 885.7       | ⭐         | Dynamic elements (2 cars, 5 people), contains forward and reverse loops, returns to origin. | ✓ |
-| parking_02 | 671.9       | 986.2       | ⭐         | Dynamic elements (1 car, 2 people), only one long forward loop in the middle, returns to origin. | ✓ |
-| parking_03 | 641.8       | 938.7       | ⭐         | Contains forward and reverse loops, though not very long, tests visual loop closure, returns to origin. | ✓ |
+| [parking_01](https://1drv.ms/u/c/c1806c2e19f2193f/Eat73bILVglGuVqFujAM9KsB-mCwtNmzxlGePFLssenXuQ?e=hgCK3O) | 606.2       | 885.7       | ⭐         | Dynamic elements (2 cars, 5 people), contains forward and reverse loops, returns to origin. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EVLvplfb5j9BhKhm8O3d8awBqyzAt5YnHmTJ3L_LY8abVA?e=WBfIFy) |
+| [parking_02](https://1drv.ms/u/c/c1806c2e19f2193f/EeZbhuGJYH9Ag2N_jWaxahEBAqoLIFP40rrXwHfDHa-u7w?e=IHQ0hw) | 671.9       | 986.2       | ⭐         | Dynamic elements (1 car, 2 people), only one long forward loop in the middle, returns to origin. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EaXKTkV5m5hBiiq2cCq_-YUBWgy0ZqnN3HBt88u3cOH-Nw?e=zBeZi9) |
+| [parking_03](https://1drv.ms/u/c/c1806c2e19f2193f/EZRHj7krEU5Pl1b5lcoPCPQB49YO1DDxGnkp__bMTuYRzA?e=oiE8bU) | 641.8       | 938.7       | ⭐         | Contains forward and reverse loops, though not very long, tests visual loop closure, returns to origin. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EZ77xr_2691KhouoLmG7WJYB-ls7A1JL1mb0N2lZLn9k1Q?e=mdg8zL) |
 
 
 
