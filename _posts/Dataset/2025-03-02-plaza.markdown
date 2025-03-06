@@ -1,0 +1,29 @@
+---
+title: "Plaza"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Plaza
+---
+
+# Plaza
+
+Data for this category is collected in two large plazas, featuring highly-dynamic pedestrian, changing appearance, and ground reflections, which present substantial challenges for SLAM algorithms. Specifically, we record data across multiple floors and lift to evaluate relocation performance.
+
+![figure](../../assets/image/plaza.png)
+
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|--------------|-------------|-------------|------------|-------------|-------------|
+| https://1drv.ms/u/c/c1806c2e19f2193f/ERHxj6C5WYZAgCppZmxLhLcB3ctXdukRDlA198oz4oHEdA?e=GLX1th     | 195.5       | 253.5       | ⭐         | 1 floor, medium dynamic people, glass and ground reflection, returns to origin. | https://1drv.ms/t/c/c1806c2e19f2193f/EZgdoL0qxwFPhYr2gL8RmlEBgxefcMUtKT2pFWlo5LcFGA?e=JYV2y4 |
+| https://1drv.ms/u/c/c1806c2e19f2193f/EfQGt54PljBPhrdSW4NG62MB0FHg5Gfrx_cIDXZViq2p5A?e=X26PoE     | 535.8       | 761.1       | ⭐⭐        | 1 floor, high dynamic people, transparent glass, ground reflections, larger scale, returns to origin. | https://1drv.ms/t/c/c1806c2e19f2193f/ET0-20TgEltCgNpOgghkAVEBDTgAbxkTb_SijYyB42Eqtg?e=il8Pcb |
+| https://1drv.ms/u/c/c1806c2e19f2193f/Ec-ziZO_8hJBgbWPqx4JIhkBi74N33GjenPZ38wCpovKDg?e=sk8eyB     | 1381.9      | 1838.4      | ⭐⭐⭐⭐      | 7 floor, accessed via elevators, multi-level indoor scenes, returns to origin using a lift, limited visibility, environmental changes, medium dynamic people, returns to origin. | https://1drv.ms/t/c/c1806c2e19f2193f/EYTh6b6-OHlOm_-6xSoDbZcBSLepcr9BFvH2YBDBnRsqiA?e=7rx3TF |
+| https://1drv.ms/u/c/c1806c2e19f2193f/EbFN-G10ZCBLtHfdHt-oYR8BhiphknHPiJy4VWjRzgfHNA?e=SOy80V     | 2215.9      | 3713.8      | ⭐⭐⭐⭐      | 7 floors, accessed via elevators, multi-level indoor scenes, returns to origin using a lift, limited visibility, environmental changes, high dynamic people, transparent glass, ground reflections, returns to origin. | https://1drv.ms/t/c/c1806c2e19f2193f/EaKmcceAI9lJqFnHsC2pBQQBtJoJ0K79QFTKDDjoXSSmGA?e=MqmxfX |
+
