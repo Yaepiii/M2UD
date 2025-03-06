@@ -2,7 +2,7 @@
 title: "Acquisition Platform"
 layout: post
 date: 2025-03-06 12:00
-image: /assets/images/sia.png
+image: /assets/image/sia.png
 headerImage: true
 tag:
 - markdown
