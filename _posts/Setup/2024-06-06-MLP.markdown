@@ -1,0 +1,70 @@
+---
+title: "MLP"
+layout: post
+date: 2024-06-06 00:22
+image: /assets/images/markdown.jpg
+headerImage: ture
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: LLM
+author: Zhenshuai Yin
+description: 记录一下对MLP多层感知机的理解
+---
+
+# 多层感知机
+
+多层感知机(MLP, Multilayer Perception) 也叫人工神经网络(ANN, Artificial Neural Network), 除了输入输出层, 他中间可以有多个隐藏层, 最简单的MLP只含有一个隐藏层, 即三层的结构
+
+![img](https://tuchuang-yzs.oss-cn-beijing.aliyuncs.com/20190623203530221.png)
+
+## 多层感知机的原理
+
+从上图可以看到, 多层感知机的层与层之间是全连接的. 多层感知机最底层是输入层, 中间是隐藏层, 最后是输出层. 
+
+假设输入层用x表示, 则隐藏层的输出就是f(W~1~x+b~1~)(这里的x包含从1~n), W1是权重, 也叫链接系数, b是偏置, 函数可以使常用的sigmoid函数或tanh函数
+
+> 神经网络中的Sigmoid型激活函数:
+>
+> 使用激活函数的原因:
+>
+> ​	不使用激活函数, 每一层输出都是上层输入的线性函数, 无论神经网络有多少层, 输出都是输入的线性组合
+>
+> ​	使用激活函数, 能够给神经元中引入非线性因素, 使得神经网络可以任意逼近任何非线性函数.
+>
+> 激活函数需要具备的性质:
+>
+> ​	连续并可导(允许少数点上不可导)的非线性函数. 可导的激活函数可以直接利用数值优化的方式来学习网络参数
+>
+> ​	激活函数及其导函数要尽可能的简单, 有利于提高网络计算效率(一个提供非线性转换的工具, 搞复杂干什么)
+>
+> ​	激活函数的导函数的值域要在一个合适的区间内, 不能太大, 也不能太小, 否则会影响训练的效率和稳定性(换而言之, 斜率不能太大, 否则会造成类似于激增的效果, 不利于模型学习)
+
+![image-20240606003645095](https://tuchuang-yzs.oss-cn-beijing.aliyuncs.com/image-20240606003645095.png)
+
+---
+
+从隐藏层到输出层可以看成是一个类别的逻辑回归, 即softmax回归, 所以输出层的输出就是[softmax(WnYn+b2)]，Y1表示隐藏层的输出f(W1X+b1)。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
