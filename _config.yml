@@ -1,6 +1,6 @@
 # main text of home
-title: SIA
-bio: Shenyang Institute of Automation Chinese Academy of Sciences
+title: M2UD: A Multi-model, Multi-scenario, Uneven-terrain Dataset for Ground Robot with Localization and Mapping Evaluation
+bio: Yanpeng Jia, Shiyi Wang, shiliang Shao, Yue Wang, Fu Zhang and Ting Wang
 
 # twitter summary info
 description: A blog about technology and stuff related
@@ -18,13 +18,13 @@ dark-theme: auto
 # and specify source (external or local).
 resume: false
 resume-external: false
-resume-url: resume/CV_Zhenshuai Yin.pdf
+resume-url:
 
 portfolio: false
 portfolio-external: false
-portfolio-url: portfolio/portfolio_Zhenshuai Yin.pdf
+portfolio-url:
 
-url: https://qhwqqq.github.io
+url: https://yaepiii.github.io/M2UD/
 # your url: https://USERNAME.github.io
 
 permalink: /:title/
@@ -42,16 +42,17 @@ disqus:
 #twitter: mytwitter
 #instagram: myinstagram
 #linkedin: mylinkedin
-github: qhwqqq
-email: #
+github: yaepiii
+email: yaepii@126.com
+
 
 authors:
-  qhwqqq:
-    name: qhwqqq
-    bio: A student at northeastern university
+  yaepiii:
+    name: yaepiii
+    bio: B.S in Harbin Institute of Technology; Pursuing the M.S degree with the Shenyang Institute of Automation, Chinese Academy of Sciences.
     external-image: true
     picture: https://tuchuang-yzs.oss-cn-beijing.aliyuncs.com/mypicture.jpg
-    twitter: 123
+    twitter: #
 #  jamesfoster:
 #    name: James Foster
 #    bio: A Man who develops software with coffee
