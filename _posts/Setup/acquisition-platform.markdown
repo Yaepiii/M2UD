@@ -3,7 +3,7 @@ title: "Acquisition Platform"
 layout: post
 date: 2025-03-06 12:00
 image: /assets/images/markdown.jpg
-headerImage: false
+headerImage: true
 tag:
 - markdown
 - components
@@ -13,6 +13,7 @@ category: Setup
 author: Yanpengjia
 description: Acquisition Platform
 ---
+[toc]
 
 # Acquisition Platform
 
