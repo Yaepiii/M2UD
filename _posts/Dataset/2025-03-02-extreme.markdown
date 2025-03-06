@@ -22,9 +22,9 @@ The sequences include severe sandstorm and snowfall conditions (rarely found in 
 
 | Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
 |--------------|-------------|-------------|------------|-------------|-------------|
-| extreme_01   | 417.2       | 514.8       | ⭐⭐        | Nighttime recording, strong wind/sandstorm, few dynamic elements, rural scene, noisy features (surrounding plants shaking violently, unstable features). | ground truth |
-| extreme_02   | 299.8       | 431.2       | ⭐⭐⭐       | Severe sandstorm + light rain, unstructured scene, few dynamic elements (2 people / 1 car), uneven terrain. | ground truth |
-| extreme_03   | 412.9       | 442.7       | ⭐⭐⭐       | Nighttime snowfall, GR flowerbed route. | ground truth |
-| extreme_04   | 539.6       | 588.1       | ⭐⭐⭐       | Nighttime light snow, circling a building, multiple forward and reverse loops. | ground truth |
+| [extreme_01](https://1drv.ms/u/c/c1806c2e19f2193f/EcHZeXlgHo5BvYoEAULGDKYB5UVsG1QreLn4MgVN0taz3w?e=38Xun9)   | 417.2       | 514.8       | ⭐⭐        | Nighttime recording, strong wind/sandstorm, few dynamic elements, rural scene, noisy features (surrounding plants shaking violently, unstable features). | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EUsbGJ8pNCpBo0FsIJQJnfgBkwYdFEGwQFrN2bxwhKaS0w?e=1NJ02S) |
+| [extreme_02](https://1drv.ms/u/c/c1806c2e19f2193f/EdoTdz_b2TpEsLNftnltPH8B1LOzAyEjyiCYaqWgydeBFw?e=MUTJKl)   | 299.8       | 431.2       | ⭐⭐⭐       | Severe sandstorm + light rain, unstructured scene, few dynamic elements (2 people / 1 car), uneven terrain. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/ESZJP3IoVP5LtYFoYYMW5x0Bbt0SoOe9qUyrJe6o8GIDbA?e=qlL5B3) |
+| [extreme_03](https://1drv.ms/u/c/c1806c2e19f2193f/EdlzeHCSKoBGghu4lNLYugoB0wSIOlkyDBzHVmwbZ7vCFQ?e=ykdIQj)   | 412.9       | 442.7       | ⭐⭐⭐       | Nighttime snowfall, GR flowerbed route. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EaYVIQRd8eFNohRz-YijbEUBgAtGgPWPfx7pygSoVeCU-w?e=qNmjla) |
+| [extreme_04](https://1drv.ms/u/c/c1806c2e19f2193f/EV3t9I9fDitHtcjsg-rFPeABiHOXCkxGKRrkuev-ajmcuA?e=3b1n1V)   | 539.6       | 588.1       | ⭐⭐⭐       | Nighttime light snow, circling a building, multiple forward and reverse loops. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EaNMqWeYd-VCoiR6MaA_gpkBmPfeekE6ftCIt0sK6e9VuQ?e=PM816t) |
 
 
