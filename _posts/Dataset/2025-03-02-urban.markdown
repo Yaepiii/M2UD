@@ -1,0 +1,34 @@
+---
+title: "Urban"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Urban
+---
+
+# Urban
+
+The urban sequences are collected in Shenyang, China, including numerous highly-dynamic objects and various types of vehicles, which is a prominent research topic in SLAM. It comprises two sequences over 2 km, where many algorithms exhibit significant Z-axis drift.
+
+![figure](../../assets/image/urban.png)
+
+| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|------------|-------------|-------------|------------|-------------|-------------|
+| urban_01   | 674.4       | 785.4       | ⭐⭐        | Afternoon, urban environment, high dynamics, slight visual overexposure. | ground truth |
+| urban_02   | 1075.6      | 1217.5      | ⭐⭐⭐⭐      | Afternoon, urban environment, high dynamics, passes a short tunnel, then descends a large slope into the park. | ground truth |
+| urban_03   | 454.9       | 528.3       | ⭐⭐⭐⭐      | Afternoon, good lighting, smooth road, passes a short tunnel, medium dynamics. | ground truth |
+| urban_04   | 1896.0      | 2430.9      | ⭐⭐⭐⭐⭐     | Large-scale loop (~2.4km), high dynamics, includes at least 3 buses. | ground truth |
+| urban_05   | 2476.6      | 2807.9      | ⭐⭐⭐⭐⭐     | Large-scale loop (~3km), high dynamics, forward/reverse loops. | ground truth |
+
+
+
+
+
