@@ -1,0 +1,31 @@
+---
+title: "Rural"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Rural
+---
+
+# Rural
+
+It includes a large-scale, low-dynamic rural route and small-scale, beautiful flower beds strolling. The terrain is flat; however, the long travel distance often leads to accumulative errors.
+
+![figure](../../assets/image/urban.png)
+
+| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|------------|-------------|-------------|------------|-------------|-------------|
+| rural_01   | 463.6       | 570.9       | ⭐         | Morning garden bed, unstructured environment, includes forward/reverse/extreme loops, water mist spraying in the garden causes unstable LiDAR point clouds, no dynamic elements. | ground truth |
+| rural_02   | 2648.3      | 3264.6      | ⭐⭐⭐⭐⭐     | Rural environment, large-scale (~3.2 km), few dynamic elements (cars/tractors/people), includes long forward and reverse closed loops, diverse scenes. | ground truth |
+
+
+
+
+
