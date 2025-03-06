@@ -1,0 +1,125 @@
+# main text of home
+title: SIA
+bio: Shenyang Institute of Automation Chinese Academy of Sciences
+
+# twitter summary info
+description: A blog about technology and stuff related
+
+# if it's an external image, update below for true
+# better with square images
+external-image: false
+picture: assets/image/1.png
+
+# your site color theme, true for dark theme, 
+# false to light theme, auto to switch with system.
+dark-theme: auto
+
+# If you want to include your resume, set to true
+# and specify source (external or local).
+resume: false
+resume-external: false
+resume-url: resume/CV_Zhenshuai Yin.pdf
+
+portfolio: false
+portfolio-external: false
+portfolio-url: portfolio/portfolio_Zhenshuai Yin.pdf
+
+url: https://qhwqqq.github.io
+# your url: https://USERNAME.github.io
+
+permalink: /:title/
+
+# To enable google analytics, supply your token below
+# analytics-google: 'UA-MYANALYTICS'
+
+# if you don't want comments in your posts, leave categories empty
+disqus:
+  shortname: github # enter this from your disqus account
+  categories: [FedMD, project, LLM] # only show disqus for posts that have these categories
+
+# if you don't have any of social below, comment the line
+#facebook: myfacebook
+#twitter: mytwitter
+#instagram: myinstagram
+#linkedin: mylinkedin
+github: qhwqqq
+email: #
+
+authors:
+  qhwqqq:
+    name: qhwqqq
+    bio: A student at northeastern university
+    external-image: true
+    picture: https://tuchuang-yzs.oss-cn-beijing.aliyuncs.com/mypicture.jpg
+    twitter: 123
+#  jamesfoster:
+#    name: James Foster
+#    bio: A Man who develops software with coffee
+#    external-image: false
+#    picture: assets/images/james.jpg
+#    twitter: jamesfoster
+
+# do you want a larger site? change the option below
+# options: [normal, large] | default: normal
+# normal = 560px / large = 810px
+width: large
+
+# if you don't need projects, comment the *projects* configs below
+projects: true
+
+# if you don't need "about" or "blog", comment them out below
+about: false
+FedMD: false
+setup: true
+dataset: true
+# 如果想添加一个新的模块, 首先修改_includes中的header.html, 然后修改同目录下的nav.html, 然后修改_sass/pages/home-blog-projects.sass(注意, 要全部小写), 然后就是在本文件添加相应标签, 然后创建对应名称的html, 即可成功建立
+# do you want to show the "read time" of the posts?
+read-time: true
+
+# do you want to show the "tags" inside the posts?
+show-tags: true
+
+# related posts inside a post?
+related: true
+
+# Display links for next and previous posts for the specified categories
+post-advance-links: [FedMD, LLM]
+
+# show author block at the end of a post ?
+show-author: true
+
+# do you want some animations?
+animation: true
+
+# add default values to specific pages or layouts
+defaults:
+  - scope:
+      path: "" # an empty string here means all files in the project
+      layout: "post"
+    values:
+      # setting all post to not hidden by default,
+      # can be overridden in the front matter for a specific post
+      hidden: false
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+
+compress_html:
+  ignore:
+    envs:
+      - development
+      - stage
+
+exclude:
+  [
+    "README.md",
+    "Gemfile",
+    "Gemfile.lock",
+    "FAQ.md",
+    "vendor",
+    "notice.md",
+  ]
+future: true
