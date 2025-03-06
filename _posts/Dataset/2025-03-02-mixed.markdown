@@ -1,0 +1,30 @@
+---
+title: "Mixed"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Mixed
+---
+
+# Mixed
+
+Considering that many robotic systems in real-world applications must work between multiple operational scenarios, we design a series of multi-scenario mixed sequences, incorporating combinations such as indoor and outdoor environments, parks and urban areas, and parking and plazas. These sequences process the characteristics of multiple scenarios, presenting substantial challenges for SLAM algorithms.
+
+![figure](../../assets/image/mixed.png)
+
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|--------------|-------------|-------------|------------|-------------|-------------|
+| mixed_01     | 231.4       | 226.4       | ⭐⭐        | Night, up and down flower beds, then upstairs into an indoor hall, downhill into an atrium for a lap, uphill, upstairs and downstairs once, exit the hall, downstairs, up and down flower beds again, return to the starting point. | ground truth |
+| mixed_02     | 554.4       | 641.9       | ⭐⭐        | a loop through beach and park environments, unstructured, few dynamic people and cyclists, uneven terrain, good lighting. | ground truth |
+| mixed_03     | 1915.8      | 2049.2      | ⭐⭐⭐⭐⭐     | Starting at intersection, straight onto an overpass, multiple high-dynamic vehicles, enters Park, various scenes (rugged paths, lakeside, narrow bridge, slopes, steep stairs, forest area, structured square), dried and frozen lake, exits park, encounters traffic congestion, ultra-high dynamic, completes a large forward loop. | ground truth |
+| mixed_04     | 2207.2      | 2894.1      | ⭐⭐⭐⭐⭐     | Loops through Park and streets, final section includes both reverse and forward loops, unstructured, high-dynamic environment, overexposure. | ground truth |
+| mixed_05     | 4751.0      | 6350.1      | ⭐⭐⭐⭐⭐     | Underground Level -2 parking + 7-floor plaza, encounters dynamic cars in parking lot, accesses upper floors via elevators, multi-level indoor scenes, returns to origin using an lift, limited visibility, environmental changes, high dynamic people, transparent glass, ground reflections, returns to origin. | ground truth |
+
