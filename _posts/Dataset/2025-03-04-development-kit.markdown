@@ -1,5 +1,5 @@
 ---
-title: "Development Kith"
+title: "Development Kit"
 layout: post
 date: 2025-03-05 12:00
 image: /assets/image/sia.png
@@ -11,10 +11,10 @@ tag:
 hidden: false
 category: Dataset
 author: Yanpeng Jia
-description: Development Kith
+description: Development Kit
 ---
 
-# Development Kith
+# Development Kit
 
 To enhance usability and facilitate evaluation, a series of development kits are also released on the M2UD dataset website, which are implemented in C`````` and built based on ROS. A brief overview of their main functions is provided as follows:
 
