@@ -18,6 +18,4 @@ description: Acquisition Platform
 
 As shown in Figure 2, two self-developed ground robots are utilized for data collection, both equipped with identical sensors to ensure data consistency. The six-wheeled special robot in Figure 2 (A) is designed for outdoor data collection, whose unique rocker-arm design provides excellent adaptability to normal road surfaces, uneven terrains, and stairs, making it particularly suitable for challenging outdoor environments. As shown in Figure 2 (B), the four-wheeled mobile robot is compact, highly maneuverable, and capable of fast movement, which can navigate freely through various indoor environments and is primarily used for data collection in locations such as plazas, parking, and long corridors. The Robot Operating System (ROS) is utilized to store data in bag format on a 4TB solid-state drive in the on-board computer, facilitating its use for SLAM algorithms.
 
-<p align="center">
-    <img src="/assets/image/figure2.png" />
-</p>
+![figure](../../assets/image/figure2.png)
