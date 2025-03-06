@@ -1,0 +1,33 @@
+---
+title: "Park"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Park
+---
+
+# Park
+
+This is not a typical park walking route. Instead, it requires traversing grasslands and wooded areas within the park, featuring uneven-terrain, some of which also cover snow.
+
+![figure](../../assets/image/park.png)
+
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|--------------|-------------|-------------|------------|-------------|-------------|
+| park_01      | 475.9       | 521.4       | ⭐         | Afternoon, Park, post-snow, good lighting, traversing forest area, unstructured environment, uneventerrain. | ground truth |
+| park_02      | 569.6       | 602.8       | ⭐⭐        | Afternoon, Park, post-snow, good lighting, traversing forest area, unstructured environment, slight dynamics when crossing roads, enters another forest area with significantly uneven terrain. | ground truth |
+| park_03      | 224.8       | 259.1       | ⭐⭐        | Afternoon, Park, post-snow, good lighting, flat roads, few dynamic elements. | ground truth |
+| park_04      | 745.0       | 879.9       | ⭐⭐⭐       | Shenyang Science Park, looping inside, includes various scenes (rugged paths, lakeside, narrow bridge, slopes, steep stairs, downhill, structured square), returning to the starting point. | ground truth |
+| park_05      | 525.4       | 560.0       | ⭐⭐⭐       | Afternoon, Park, good lighting, along a long river road, lake on the right (half invalid points), unstructured environment, oscillating terrain, stairs and slopes, some dynamic people. | ground truth |
+| park_06      | 363.9       | 382.0       | ⭐⭐⭐       | Afternoon, Park, snow-covered ground, good lighting, traversing forest area, unstructured environment, uneven terrain, no dynamic elements, passes through statue square and enters another forest area. | ground truth |
+
+
+
