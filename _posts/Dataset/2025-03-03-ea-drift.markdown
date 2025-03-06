@@ -1,0 +1,52 @@
+---
+title: "EA-Drift"
+layout: post
+date: 2025-03-03 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: EA-Drift
+---
+
+# EA-Drift
+
+We note that the ATE and the drift rate consider only the localization accuracy of the SLAM algorithm, without accounting for its efficiency into the evaluation. However, real-time performance is an important requirement for the SLAM algorithm. Particularly, in practical robot applications, the SLAM algorithm, as part of the robot system, coexists with other functional algorithms, requiring that its time consumption deployed on mobile computers or even embedded systems be fully considered when selecting the SLAM algorithm. This is because an occasional frame loss may lead to robot collisions, collisions with people, and other safety hazards. Therefore, we propose a novel metric, Efficiency-Aware Drift rate (EA-Drift): 
+
+$$
+EA\text{-}Drift := \frac{\sqrt{\sum_{i=1}^{n} e^{\frac{t_i - \frac{1}{f}}{f}} \lVert P_{i}^{-1}SQ_i \rVert^2 }}{L}
+$$
+
+where, $S$ represents the rigid body transformation obtained as the least squares solution that aligns the estimated trajectory $P_{1:n}$ to the ground truth trajectory $Q_{1:n}$, solved in closed form using the Horn method and automatically aligned using evo, $L$ is estimated path length, $t_i$ represents the time consumption of frame $i$ in ms, and $f$ indicates the sensor frequency. The evaluation metric combines the algorithm's time consumption and the accumulated localization error to form a comprehensive criterion, helping researchers choose a more suitable SLAM algorithm for practical applications. This evaluation has been integrated into evo as EA-evo for ease of use.
+
+The following table is the sequence for benchmarking:
+
+| Sequence     | Duration (s) | Distance (m) | Difficulty     |
+|-------------|-------------|-------------|---------------|
+| open_08     | 2511.4      | 2789.9      | ⭐⭐⭐⭐⭐       |
+| rural_01    | 463.6       | 570.9       | ⭐      |
+| urban_05    | 2476.6      | 2807.9      | ⭐⭐⭐⭐⭐       |
+| aggressive_04 | 493       | 508.7       | ⭐⭐⭐       |
+| campus_05   | 563.6       | 667.6       | ⭐⭐       |
+| park_02     | 569.6       | 602.8       | ⭐⭐       |
+| extreme_03  | 412.9       | 442.7       | ⭐⭐⭐       |
+| mixed_02    | 554.4       | 641.9       | ⭐⭐       |
+| smoke_02    | 223.6       | 240.8       | ⭐⭐⭐       |
+| parking_01  | 606.2       | 885.7       | ⭐       |
+| plaza_04    | 2215.9      | 3713.8      | ⭐⭐⭐       |
+| corridor_04 | 139.7       | 130.6       | ⭐⭐⭐       |
+
+
+
+The qualitative results are presented below, and more results can be found in our paper.
+
+![figure](../../assets/image/figure11.png)
+
+![figure](../../assets/image/figure12.png)
+
+![figure](../../assets/image/figure13.png)
