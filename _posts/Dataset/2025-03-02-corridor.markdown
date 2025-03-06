@@ -20,7 +20,7 @@ This environment exists a highly-repetitive geometric structure, a typical degen
 
 ![figure](../../assets/image/corridor.png)
 
-| Sequence      | Duration (s) | Length (m) | Difficulty | Description |
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description |
 |--------------|----------|------------|------------|-------------|
 | corridor_01  | 160.8    | 206.7      | ⭐⭐         | Day, U-shaped, no loop, passes through an atrium, includes slopes, dynamic (2 people), returns to start |
 | corridor_02  | 195.3    | 219.4      | ⭐⭐⭐        | Night, alternating dim lighting, U-shaped, no loop, passes through an atrium, includes slopes, no dynamic elements, returns to start. |
