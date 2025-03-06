@@ -71,8 +71,8 @@ projects: true
 # if you don't need "about" or "blog", comment them out below
 about: true
 FedMD: false
-Setup: true
-Dataset: true
+setup: true
+dataset: true
 # 如果想添加一个新的模块, 首先修改_includes中的header.html, 然后修改同目录下的nav.html, 然后修改_sass/pages/home-blog-projects.sass(注意, 要全部小写), 然后就是在本文件添加相应标签, 然后创建对应名称的html, 即可成功建立
 # do you want to show the "read time" of the posts?
 read-time: true
