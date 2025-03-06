@@ -1,0 +1,34 @@
+---
+title: "Parking"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Parking
+---
+
+# Parking
+
+Three sequences are recorded in the underground parking to validate SLAM performance in this environment, where various loops are specifically designed to support research on indoor SLAM algorithms.
+
+![figure](../../assets/image/parking.png)
+
+| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|------------|-------------|-------------|------------|-------------|-------------|
+| parking_01 | 606.2       | 885.7       | ⭐         | Dynamic elements (2 cars, 5 people), contains forward and reverse loops, returns to origin. | ✓ |
+| parking_02 | 671.9       | 986.2       | ⭐         | Dynamic elements (1 car, 2 people), only one long forward loop in the middle, returns to origin. | ✓ |
+| parking_03 | 641.8       | 938.7       | ⭐         | Contains forward and reverse loops, though not very long, tests visual loop closure, returns to origin. | ✓ |
+
+
+
+
+
+
+
