@@ -1,0 +1,49 @@
+<nav class="{% if page.title == 'Home' %}nav-home{% else %}nav{% endif %}">
+    <ul class="list">
+        <li class="item">
+            <a class="link" href="{{ site.url }}/">Home</a>
+        </li>
+
+        {% if site.FedMD == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/FedMD">FD</a>
+            </li>
+        {% endif %}
+
+        {% if site.setup == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/LLM">setup</a>
+            </li>
+        {% endif %}
+
+        {% if site.dataset == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/ACM">dataset</a>
+            </li>
+        {% endif %}
+
+        {% if site.projects == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/projects">Projects</a>
+            </li>
+        {% endif %}
+
+        {% if site.about == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/about">About</a>
+            </li>
+        {% endif %}
+
+        {% if site.portfolio == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/{{ site.portfolio-url }}">Portfolio</a>
+            </li>
+        {% endif %}
+
+        {% if site.resume == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/{{ site.resume-url }}">Resume</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

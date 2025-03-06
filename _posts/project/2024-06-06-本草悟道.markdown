@@ -1,0 +1,133 @@
+---
+title: "本草悟道"
+layout: post
+date: 2024-06-06 09:17
+image: /assets/images/markdown.jpg
+headerImage: ture
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: project
+author: Zhenshuai Yin
+description: 记录自己这次比赛的经验与教训
+---
+
+注: 本次比赛最终获得中国大学生计算机设计大赛省级二等奖
+
+本次记录重点关注收获和教训部分
+
+> 涉及部分:
+>
+> ​	如何实现多轮问答
+>
+> ​	开源框架的使用
+>
+> ​	COATAR提示词框架
+>
+> ​	Template的修改
+>
+> ​	语音交互的实现方式
+>
+> ​	测试大模型能力的平台
+
+![image-20240606092417762](https://tuchuang-yzs.oss-cn-beijing.aliyuncs.com/image-20240606092417762.png)
+
+# 本草悟道
+
+## 多轮问答实现
+
+构建多轮问诊数据集, 使LLM学习这种需要多轮问诊最终才得出答案的模式
+
+多轮问答数据集可以使用ChatGPT进行生成, 也可以在网上找开源数据集
+
+对于通用领域, 多轮数据集相对好找, 但对于专业领域可能不太容易找到
+
+## 开源框架的使用
+
+本次比赛中, 除了基座模型Qwen和Stable Diffusion v1.5之外, 使用了LLama_Factory作为增量预训练和微调的平台, 使用Ollama作为本地部署LLM的平台, 使用OpenWebUI作为UI界面的平台, 虽然可能本次项目只获得省二也与此有些关系, 但还是有一些收获.
+
+(具体使用方式直接搜索, 然后去看github的README即可)
+
+## COSTAR框架的使用
+
+COSTAR框架的使用可以被认为是一个区别于其他队伍的地方. 使用COSTAR, 更容易去控制LLM的输出方式(当然, 因为本身基座模型规模较小, 所以效果也没有那么好, 这种方式更适合超大规模模型)
+
+[COSTAR框架及其他构建提示词策略 | Zhenshuai Yin (yin1245.github.io)](https://yin1245.github.io/GPT提示词-COSTAR框架/)
+
+## Template的修改
+
+> TEMPLATE """<|im_start|>SYSTEM PROMPT
+>
+> You will answer questions using following text which is contained by <insert text>.
+>
+> You will respond with a JSON object in this format: {“Answer”}.
+>
+> If the text does not contain sufficient information to answer the question, do not make up information and give the answer as “NA”.
+>
+> You are only allowed to answer questions related to [insert scope]. Never answer any questions related to demographic information such as age, gender, and religion.<|im_end|><|im_start|>user
+>
+> {{ .Prompt }}<|im_end|>
+>
+> <|im_start|>assistant"""
+
+通过合理使用截断符号, 让LLM明确应如何断句, 可以更好的给出回答.
+
+并且此Template是基于COSTAR框架所给出的.
+
+## 语音交互的实现方式
+
+虽然本项目语音交互的实现方式是开源项目自带的, 但想要从头实现并不困难, 
+
+1. 首先找一个语音转文字的算法
+2. 将其以request的形式整合到UI页面中(点击后录音, 结束后将录音上传, 然后等待其返回结果)
+
+## 测试平台
+
+本项目使用OpenCompass作为评测平台, 平台上有丰富的数据集, 并且提供了评测方式, 集成度较高, 比较方便.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

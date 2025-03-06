@@ -1,0 +1,154 @@
+---
+title: "算法竞赛进阶指南-第四章-同余"
+date: 2023-02-28 15:22
+layout: post
+category: ACM
+tags:
+    - markdown
+    - components
+    - extra
+author: Zhenshuai Yin
+description: 算法竞赛进阶指南-第四章-同余
+hidden: false
+image: /assets/images/markdown.jpg
+headerImage: true
+---
+
+# 同余
+
+若整数a和整数b除以正整数m的余数相等,则称a,b模m同余.记为![image-20230228152812538](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228152813.png)
+
+##### 同余类与剩余系
+
+![image-20230228152525667](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228152526.png)
+
+简化剩余系关于模m乘法封闭.(a*b mod m也属于m的简化剩余系)
+
+##### 费马小定理
+
+若p是质数,则对于任意整数a,有![image-20230228152704647](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228152705.png)
+
+##### 欧拉定理
+
+![image-20230228152728733](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228152729.png)
+
+##### 欧拉定理的推论
+
+![image-20230228152943069](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228152943.png)
+
+###### The Luckiest Number
+
+x个9连在一起的是(10^x-1),故x个8连在一起的是8/9*(10^x-1)
+
+题目要求为求出最小的x满足![image-20230228153254088](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228153254.png)
+
+因为x是L的倍数,所以x/y肯定是L/gcd(L,y)的倍数
+
+引理:(欧拉定理)![image-20230228154105772](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230228154106.png)
+
+解决方法为,求出欧拉函数φ(9L/d),枚举它的所有约数,用快速幂注意检查即可,时间复杂度为O(sqrt(L)*logL)
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+long long phi(long long n)
+{
+    long long ans = n;
+    for (long long i = 2; i <= sqrt(n); i++)
+        if (n % i == 0)
+        {
+            ans = ans / i * (i - 1);
+            while (n % i == 0)
+                n /= i;
+        }
+    if (n > 1)
+        ans = ans / n * (n - 1);
+    return ans;
+}
+long long gcd(long long a, long long b)
+{
+    return b ? gcd(b, a % b) : a;
+}
+long long qmul(long long a, long long b, long long c)
+{
+    long long res = 0;
+    while (b)
+    {
+        if (b & 1)
+            res = (res + a) % c;
+        a = (a + a) % c;
+        b >>= 1;
+    }
+    return res;
+}
+// 快速幂
+long long power(long long a, long long b, long long c)
+{
+    long long res = 1;
+    while (b)
+    {
+        if (b & 1)
+            res = qmul(res, a, c);
+        a = qmul(a, a, c);
+        b >>= 1;
+    }
+    return res;
+}
+// 从b的二进制的第一位开始计算,每一层,a肯定都要翻倍,如果b在该位为1,则答案即次方之后的值也要乘以当时的a(只是说一下自己的理解,后同,详细的当然还是要看书了/ww)
+int main()
+{
+    long long t = 1;
+    long long L, d;
+    while (1)
+    {
+        cin >> L;
+        if (L == 0)
+            return 0;
+        d = gcd(L, 8);
+        long long n = phi(9 * L / d);
+        bool jud = 0;
+        cout << "Case " << t++ << ": ";
+        long long num = 0;
+        for (long long i = 1; i <= sqrt(n); i++)
+        {
+            if (n % i == 0)
+            {
+                if (power(10, i, (9 * L / d)) == 1)
+                {
+                    cout << i << '\n';
+                    jud = 1;
+                    break;
+                }
+                if (i != n / i)
+                    if (power(10, n / i, (9 * L / d)) == 1)
+                        num = n / i;
+            }
+        }
+        if (!jud)
+            cout << num << '\n';
+    }
+}
+```
+
+这道题有一个实现上的难点在于用单纯 的快速幂是无法得到正确答案的,因为乘方次数太大,导致会出现两个long long数相乘的情况,进而导致数溢出,因为在对p取余之前,两个a要相乘,所以我们采用这种快速乘+快速幂的方式,避免了乘法过程中造成的溢出情况.
+
+### 扩展欧里几得算法
+
+![image-20230301175144495](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230301175145.png)
+
+```c++
+int exgcd(int a,int b,int &x,int &y){
+    if(b == 0){x = 1, y = 0; return a;}
+    int d = exgcd(b, a%b, x, y);
+    int z = x; x = y; y = z - y * (a/b);
+    return d;
+}
+```
+
+![image-20230301221049257](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230301221050.png)
+
+当模数p为质数时,b^(p-2)即为b的乘法逆元
+
+![image-20230301221310238](https://gitee.com/yzs1/picture/raw/master/Typora-Images/20230301221311.png)
+
+有了乘法逆元.我们在计数类问题中即使遇到a/b这样的除法算式,也可以先把a,b各自对模数p取模,再计算a*b^-1modp作为最终结果.当然,前提是必须保证b,p互质

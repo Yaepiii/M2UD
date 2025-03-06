@@ -1,0 +1,1500 @@
+---
+title: "算法竞赛进阶指南例题(第一章)"
+date: 2022-09-05 10:31
+layout: post
+category: ACM
+tags:
+    - markdown
+    - components
+    - extra
+author: Zhenshuai Yin
+description: 算法竞赛进阶指南例题(第一章)
+hidden: false
+image: /assets/images/markdown.jpg
+headerImage: true
+---
+
+注:本md中的/ww指(doge),/youl指幽灵
+
+# 基本算法
+
+## 位运算
+
+| 与    | 或    | 非    | 异或       |
+| ----- | ----- | ----- | ---------- |
+| and,& | or,\| | not,~ | xor,^(C++) |
+
+不要问为什么这么简单的知识还要放,因为有一届蓝桥杯考的异或,我就忘了是哪个符号/youl
+
+0x表示十六进制,0x00~0xFF
+
+int 最大取值:2 147 483 647 (≈2*1e9)(0x 7F FF FF FF)
+
+memset(a,val,sizeof(a)) 原理:把数值val(以十六进制形式)填充到数组a的每个字节上(可用0x3f给a赋值为较大数字)
+
+0x3F 3F 3F 3F二倍不超过0x7F FF FF
+
+算术右移(n>>1) 等于除以2向下取整 n/2为向零取整
+
+| 操作(n为整数)               | 运算           |
+| --------------------------- | -------------- |
+| 取n在二进制下的第k位        | (n>>k) & 1     |
+| 取n在二进制下的第0到k-1位   | n & ((1<<k)-1) |
+| 把n在二进制下的第k位取反    | n xor (1<<k)   |
+| 对n在二进制下的第k位赋值为1 | n \| (1<<k)    |
+| 对n在二进制下的第k位赋值为0 | n & (~(1<<k))  |
+
+n为偶数时,n xor 1 等于n+1
+
+n为奇数时,n xor 1 等于n-1 用于图论邻接表中边集的存储(还没学到,不懂)
+
+lowbit运算(最低位的1及其后面所有的0)
+
+lowbit(n) = n&(~n+1) = n&(-n)
+
+任意k∈[0,35],2^k%37的值互不相等,且恰好取遍整数1~36
+
+步入正题,例题讲解阶段
+
+### a^b
+
+一道模板题,讲解快速幂的
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+int power(int a, int b, int p)//快速幂函数模板,原理为位运算
+{
+    int ans = 1 % p;//感觉,这个%p应该可以去掉,但,emmm,加上就加上了,加上就懒得去了/ww
+    for (; b; b >>= 1)
+    {
+        if (b & 1)
+            ans = (long long)ans * a % p;//这里一定要加上那个long long,当时做的时候,因为这东西,卡了两个小时,原因就是因为是先乘再取余,所以可能会越界,下同
+            
+        a = (long long)a * a % p;
+    }
+    return ans;
+}//从b的二进制的第一位开始计算,每一层,a肯定都要翻倍,如果b在该位为1,则答案即次方之后的值也要乘以当时的a(只是说一下自己的理解,后同,详细的当然还是要看书了/ww)
+
+int main()
+{
+    long long a, b, p;
+    cin >> a >> b >> p;
+    cout << mul(a, b, p);
+    return 0;
+}
+```
+
+优化的快速幂算法(免除了两个long long数相乘超出范围的可能)
+
+```c++
+//快速乘
+long long qmul(long long a, long long b, long long c)
+{
+    long long res = 0;
+    while (b)
+    {
+        if (b & 1)
+            res = (res + a) % c;
+        a = (a + a) % c;
+        b >>= 1;
+    }
+    return res;
+}
+// 快速幂
+long long power(long long a, long long b, long long c)
+{
+    long long res = 1;
+    while (b)
+    {
+        if (b & 1)
+            res = qmul(res, a, c);
+        a = qmul(a, a, c);
+        b >>= 1;
+    }
+    return res;
+}
+```
+
+
+
+### 64位整数乘法
+
+模板题同,讲快速乘
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+long long mul(long long a, long long b, long long p)//原理同位运算,emmm,感觉,都差不多,反正,我感觉都差不多,pass(方法2没看/ww)
+{
+    long long ans = 0;
+    for (; b; b >>= 1)
+    {
+        if (b & 1)
+            ans = (ans + a) % p;
+        a = a * 2 % p;
+    }
+    return ans;
+}
+
+int main()
+{
+    long long a, b, p;
+    cin >> a >> b >> p;
+    cout << mul(a, b, p);
+    return 0;
+}
+```
+
+### 最短Hamilton路径
+
+解释二进制状态压缩的例题,一般用于枚举
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+int f[1 << 20][20];//第一个下标为枚举的状态,第二个下标为当前所在的点
+// Hamilton路径的定义:从0到n-1不重不漏地经过每一点恰好一次
+int hamilton(int n, int weight[20][20])
+{
+    memset(f, 0x3f, sizeof(f));//这里就用到了上面提到的0x3f
+    f[1][0] = 0;
+    for (int i = 1; i < (1 << n); i++)枚举每一个状态
+    {
+        for (int j = 0; j < n; j++)
+            if (i >> j & 1)//寻找可能的这次经过的点
+                for (int k = 0; k < n; k++)
+                    if (((i ^ 1 << j) >> k) & 1) //寻找可能从哪个点来,并从中选取最小值
+                        f[i][j] = min(f[i][j], f[i ^ (1 << j)][k] + weight[k][j]);
+    }
+    return f[(1 << n) - 1][n - 1];
+}
+int main()
+{
+    int n;
+    cin >> n;
+    int weight[20][20];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            cin >> weight[i][j];
+    cout << hamilton(n, weight);
+    return 0;
+}
+```
+
+### 起床困难综合症
+
+看题就知道需要用到位运算,但也需要一定的思考,不能去枚举所有可能的攻击力(会超时)
+
+正确的思路是用全1和全0来判断,然后通过结果判断可以造成最大伤害的最小攻击力
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+pair<string, int> a[100005]; // 说实话,第一次接触到pair,好优秀,省的去定义结构体了/ww,在我之后的代码里也经常用到(不懂可以CSDN/ww)
+int n, m;
+int calc(int bit, int now)//攻击力向伤害值的转化
+{
+    for (int i = 1; i <= n; i++)
+    {
+        int x = a[i].second >> bit & 1;
+        if (a[i].first == "AND")
+            now &= x;
+        else if (a[i].first == "OR")
+            now |= x;
+        else
+            now ^= x;
+    }
+    return now;
+}
+int main()
+{
+
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++)
+    {
+        char str[5];
+        int x;
+        cin >> str >> x;
+        a[i] = make_pair(str, x);
+    }
+    int ans = 0, val = 0;
+    for (int bit = 29; bit >= 0; bit--)
+    {
+        int res0 = calc(bit, 0);
+        int res1 = calc(bit, 1);//按位进行转换
+        if (val + (1 << bit) <= m && res0 < res1)//判断是否需要以及是否可以加对应位上的1
+            val += 1 << bit, ans += res1 << bit;
+        else//否则按0来加(0对于攻击力无负担)
+            ans += res0 << bit;
+    }
+    cout << ans << endl;
+    return 0;
+}
+```
+
+## 递推与递归
+
+| 枚举形式 | 状态空间规模 | 一般遍历方式                              |
+| -------- | ------------ | ----------------------------------------- |
+| 多项式   | n^k,k为常数  | for循环,递推                              |
+| 指数     | k^n,k为常数  | 递归,位运算                               |
+| 排列     | n!           | 递归,C++ next_permutation(下一个排列方式) |
+| 组合     | Cmn(不会打)  | 递归+剪枝                                 |
+
+### 递归实现组合型枚举
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> chosen;
+int n, m;
+void calc(int x)
+{
+    if (chosen.size() > m || chosen.size() + (n - x + 1) < m) // 剪枝,并保证输出的数列均为m个
+        return;
+    if (x == n + 1)
+    {
+        for (int i = 0; i < chosen.size(); i++)
+        {
+            cout << chosen[i] << ' ';
+        }
+        cout << '\n';
+        return;
+    }
+
+    chosen.push_back(x);
+    calc(x + 1);
+    chosen.pop_back();
+    calc(x + 1);
+}
+int main()
+{
+    cin >> n >> m;
+    calc(1);
+    return 0;
+}
+```
+
+### 费解的开关
+
+感觉,从这道题感觉难点还在,能不能想到,想到了其实是比较简单的,尤其是这个固定第一行,之后就按第一行的来,感觉,这是重难点.
+
+至于想到之后解题方法,那就是枚举吧
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+bool a[10][10];
+bool b[10][10];
+int minn;
+int xx[5] = {1, 0, -1, 0, 0};
+int yy[5] = {0, -1, 0, 1, 0};
+void click(int x, int y)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        a[x + xx[i]][y + yy[i]] = !a[x + xx[i]][y + yy[i]];
+    }
+}
+int main()
+{
+
+    int n;
+    cin >> n;
+    while (n--)
+    {
+        minn = 10;
+        for (int i = 1; i <= 5; i++)
+            for (int j = 1; j <= 5; j++)//输入函数,因为是连着的,所以需要用char转一下
+            {
+                char aa;
+                cin >> aa;
+                if (aa == '1')
+                    b[i][j] = 1;
+                else
+                    b[i][j] = 0;
+            }
+        int sum = 0;
+        for (int i = 0; i < 1 << 5; i++) //这里确定第一行的方法和上面那个最短hamilon?差不多路径是一样的,通过二进制来判断
+        {
+            sum = 0;
+            for (int j = 0; j <= 6; j++)
+                for (int k = 0; k <= 6; k++)
+                    a[j][k] = b[j][k];
+            for (int j = 0; j < 5; j++)//确定第一行点击后的的初始状态
+                if ((i >> j) & 1)
+                {
+                    click(1, j + 1);
+                    sum++;
+                }
+            for (int j = 1; j < 5; j++)
+            {
+                for (int k = 1; k <= 5; k++)
+                {
+                    if (!a[j][k])
+                    {
+                        click(j + 1, k);
+                        sum++;
+                    }
+                }
+            }
+            bool jud = 1;
+            for (int j = 1; j <= 5; j++)//判断第5行是否全1
+            {
+                if (!a[5][j])
+                    jud = 0;
+            }
+            if (jud)
+                minn = min(minn, sum);
+        }
+        if (minn <= 6)
+            cout << minn << '\n';
+        else
+            cout << "-1\n";
+    }
+    return 0;
+}
+```
+
+### Strange Towers of Hanoi
+
+感觉,数学规律题,
+
+三盘时的d[n] = 2* d[n-1] + 1;
+
+四盘时的f[n] = min(1<=i<n){2*f[i] + d[n-i]}
+
+需要考虑一下过程,属于,经典的递推题
+
+```
+(好像,没存下来,不写了,相信你们会的)
+```
+
+### Sumdiv
+
+分治问题(废话,能想到那个规律,谁不知道是分治)
+
+感觉,也是,看基础的一道题,属于是,知道那些公式就比较容易,不知道,hh,下道题吧
+
+A分解质因数的公式,再进一步分析A^B的约数公式,再进一步分析A^B的所有约数之和(其中,第一个公式应该记住,后面两个,可推导(当然,也可记))
+
+然后就是这道题本意要考察的点了,也就是,分治法求等比数列,通过递归分治,不断缩小问题规模,配合快速幂,在O(logc)时间内求出等比数列的和
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+vector<pair<int, int>> vec; //pair yyds
+const int q = 9901;
+int power(int a, int b)//快速幂模板
+{
+	int ans = 1 % q;
+	for (; b; b >>= 1)
+	{
+		if (b & 1)
+			ans = (long long)ans * a % q;
+		a = (long long)a * a % q;
+	}
+	return ans;
+}
+
+int sum(int p, int c)//书上公式的代码实现（自我建议,记下来(虽然,我也还没记下来吧/ww))
+{
+	if (c == 0)
+		return 1;
+	else
+		;
+	if (c % 2)
+		return ((1 + power(p, (1 + c) / 2)) * sum(p, (c - 1) / 2)) % q;
+	else
+		return ((1 + power(p, c / 2)) * sum(p, (c / 2) - 1) + power(p, c)) % q;
+}
+
+int main()
+{
+	int a, b;
+	cin >> a >> b;
+	for (int i = 2; i <= a; i++)//找质因数
+	{
+		if (!(a % i) && a)
+		{
+			int cnt = 0;
+			while (!(a % i))
+			{
+				a /= i;
+				cnt++;
+			}
+			vec.push_back(make_pair(i, cnt * b));
+		}
+	}
+	if (a != 1)//找质因数同
+	{
+		vec.push_back(make_pair(a, b));
+	}
+
+	int ans = 1;
+	for (int i = 0; i < vec.size(); i++)//将各个等比数列相加
+	{
+		ans *= sum(vec[i].first, vec[i].second);
+		ans %= q;
+	}
+	cout << ans;
+	return 0;
+}
+```
+
+## 前缀和与差分
+
+概念嘛,自己看书/ww,就两个公式
+
+差分,有助于把原序列上的区间操作转化为差分序列上的单点操作
+
+上例题
+
+### 激光炸弹
+
+讲真,看这道题,真就,长见识,真就,没想到前缀和还能这么用
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+int s[10005][10005];
+int a[10005][10005];
+int main()
+{
+    int n, r;
+    cin >> n >> r;
+    for (int i = 0; i < n; i++)//x++,y++是为了,方便下面的计算,省的处理越界问题了
+    {
+        int x, y;
+        cin >> x >> y;
+        x++;
+        y++;
+        cin >> a[x][y];
+    }
+
+    s[1][1] = a[1][1];
+    for (int i = 1; i <= 5000; i++)
+        for (int j = 1; j <= 5000; j++)
+            s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + a[i][j];
+    int maxx = 0;
+    for (int i = r; i <= 5000; i++)
+        for (int j = r; j <= 5000; j++)
+            maxx = max(maxx, s[i][j] - s[i - r][j] - s[i][j - r] + s[i - r][j - r]);
+    cout << maxx;
+    return 0;
+}
+```
+
+### IncDec Sequence
+
+这道题就,理解,然后懂差分的这个公式,应该就,问题不大?
+
+```
+#include <bits/stdc++.h>using namespace std;int main(){    int n;    cin >> n;    long long a[100005], b[100005];    cin >> a[0];    b[0] = a[0];//这里可以选择特殊处理一下0,也可以和上面的激光炸弹一样,设置为全局变量,然后从1开始    long long zheng = 0, fu = 0;    for (int i = 1; i < n; i++)    {        cin >> a[i];        b[i] = a[i] - a[i - 1];//差分序列初始化        if (b[i] > 0)            zheng += b[i];        else            fu -= b[i];//计算正数和负数的个数    }    b[n] = 0;    cout << max(zheng, fu) << '\n';    cout << abs(zheng - fu) + 1;        return 0;} 
+```
+
+### Tallest Cow
+
+感觉这道题比上题简单,就, 纯纯差分的应用,不过要特殊主义的就是,可能会出现相同的两头牛,用一个bool的二维数组判断下就好
+
+```
+#include <iostream>
+using namespace std;
+int c[10005], d[10005];
+bool jud[10005][10005];
+int main()
+{
+    int n, i, h, r;
+    cin >> n >> i >> h >> r;
+    while (r--)
+    {
+        int a, b;
+        cin >> a >> b;
+        if (a > b)
+            swap(a, b);
+        if (jud[a][b])
+            continue;
+        d[a + 1]--;
+        d[b]++;
+        jud[a][b] = 1;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        c[i] = c[i - 1] + d[i];
+        cout << h + c[i] << '\n';
+    }
+    return 0;
+}
+```
+
+## 二分
+
+二分优秀啊二分,二分以及下下节的倍增,都是属于,让人眼界一新的查找方法,就,膜拜大佬(指想出来的那位)
+
+三分求单峰函数，l和r取二等分点极其接近的地方，每次缩小1/2的范围
+
+答案具有单调性（最大值最小问题），可用二分转化为判定（直至缩小到l=r），把求最优解问题转化为判定是否存在可行方案使结果达到mid的问题
+
+先放下二分的模板吧,
+
+整数集合上
+
+```
+while(l<r)
+{
+    int mid = (l+r)>>1;
+    if(a[mid]>=x) r=mid;
+    else l=mid+1;
+}
+return a[l];
+while(l<r)
+{
+	int mid = (l+r+1)>>1;
+	if(a[mid]<=x) l=mid;
+    else r=mid-1;
+}
+return a[l];
+在互不相等的情况下
+while(l<=r)
+{
+    int mid=(l+r)>>1;
+    if(compare(res[mid],i))l=mid+1;//因为不可能会等于,所以可以这样写
+    else r=mid-1;
+}
+return r;//插入在r后面
+```
+
+实数域
+
+```
+while(l+1e-5<r)
+{
+	double mid = (l+r)/2;
+	if(calc(mid)) r = mid;
+    else l = mid;
+}
+
+for(int i=0;i<100;i++)
+{
+    double mid = (l+r)/2;
+	if(calc(mid)) r = mid;
+    else l = mid;
+}
+```
+
+### Best Cow Fences
+
+在看这本书之前,甚至连不限长最大字段和都没有,固定的思维去写
+
+而且,这个取min_val的方法,也是优秀,感觉,充分说明了,编程题中,公式的重要性,没有公式,有时候真的就,思路会很乱
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+double a[100005], b[100005], sum[100005];
+int main()
+{
+    int n, f;
+    cin >> n >> f;
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    double eps = 1e-5;
+    double l = -1e6, r = 1e6;
+    while (r - l > eps)//实数域的二分
+    {
+        double mid = (l + r) / 2;
+        for (int i = 1; i <= n; i++)
+        {
+            b[i] = a[i] - mid;
+            sum[i] = sum[i - 1] + b[i];
+        }
+        double ans = -1e9;
+        double min_val = 1e9;
+        for (int i = f; i <= n; i++)
+        {
+            min_val = min(min_val, sum[i - f]);
+            ans = max(ans, sum[i] - min_val);
+        }
+        if (ans >= 0)//说明可以取到该值
+            l = mid;
+        else
+            r = mid;
+    }
+    cout << int(r * 1000);
+    return 0;
+}
+```
+
+### Innovative Business
+
+```
+// Forward declaration of compare API.
+// bool compare(int a, int b);
+// return bool means whether a is less than b.
+
+//函数题
+class Solution {
+public:
+    vector<int> specialSort(int N) {
+        vector<int>res;
+        res.push_back(1);
+        for(int i=2;i<=N;++i){
+            int l=0,r=res.size()-1;
+            while(l<=r){
+                int mid=(l+r)>>1;
+                if(compare(res[mid],i))l=mid+1;//因为不可能会等于,所以可以这样写
+                else r=mid-1;
+            }
+            res.push_back(i);
+            for(int j=res.size()-2;j>r;j--)
+            swap(res[j],res[j+1]);
+        }
+        return res;
+    }
+};
+```
+
+## 排序
+
+九大排序算法
+
+选择,插入,冒泡
+
+堆,归并,快排 属于是,要难理解一些,但复杂度比前三个要好,优化了logn
+
+计数,基数,桶
+
+最后三个是真优秀,真就,可能能达到O(n)的复杂度了已经!
+
+离散化:把无穷大集合(尤其指数非常分散的情况)中的若干个元素映射为有限集合(中连续的数)以便于统计(和排序)的方法
+
+离散化模板
+
+```
+void discrete()
+{
+    sort(a+1,a+n+1);
+    for(int i=1;i<=n;i++)
+        if(i==1||a[i]!=a[i-1]) 
+            b[++m]=a[i];
+}
+
+int query(int x)
+{
+    return lower_bound(b+1,b+m+1,x) - b;
+}
+```
+
+第k大数没有题/youl,感觉自己看明白了,嗯,对,看明白了(用快排)
+
+逆序对用归并(or树状数组?是个什么东西)
+
+模板
+
+```
+void merge(int l, int mid, int r)
+{
+    if (l == r)
+        return;
+    merge(l, (l + mid) / 2, mid);
+    merge(mid + 1, (mid + 1 + r) / 2, r);
+    int i = l, j = mid + 1;
+    for (int k = l; k <= r; k++)
+        if (j > r || i <= mid && a[i] <= a[j])
+            b[k] = a[i++];
+        else
+            b[k] = a[j++], cnt += mid - i + 1;
+    for (int k = l; k <= r; k++)
+        a[k] = b[k];
+}
+```
+
+### Cinema
+
+一道,考察离散化?嗯,算是吧,毕竟,好像不离散化的话,就需要按别的方法来写,or,超时,以及考察思维的题
+
+![image-20220816094458890](https://yzs1.gitee.io/images/image-20220816094458890.png)
+
+给各位增强了下数据,你们不要感谢我/ww,乐
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+bool cmp(pair<int, int> a, pair<int, int> bb)//这里需要注意的是,重载运算符是不可行的,因为存在系统定义的对于pair的<运算
+{
+    return a.second > bb.second;
+}
+
+bool jud[200005];
+int a[200005];//储存离散化之前的原始数据
+pair<int, int> b[200005];//储存离散化之后的数据,其中,first表示对应的原始数据,second表示所存在的个数
+map<int, bool> mapp;
+map<int, bool> mappp;//两个map用来判断是否该数字在科学家?人?所懂得的语言之中,两个map是因为,要分别对语音和字幕判断
+int n, m;
+int main()
+{
+
+    cin >> n;
+
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+        mapp[a[i]] = 1;
+        mappp[a[i]] = 1;
+    }
+    sort(a + 1, a + n + 1);//进行离散化处理
+    int t = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (i == 1 || a[i] != a[i - 1])
+        {
+            b[++t].first = a[i];
+            b[t].second = 0;
+        }
+        b[t].second++;
+    }
+    sort(b + 1, b + t + 1, cmp);//根据个数排序(从大到小)
+    cin >> m;
+    int c[200005], d[200005];
+    int q = t;
+    vector<int> ans;
+    for (int i = 1; i <= m; i++)
+    {
+        cin >> c[i];
+        if (!mapp[c[i]])//如果没有人懂,则直接pass,因为懂的人为0,不会为最大,(如都不懂会有特殊处理)
+            continue;
+        bool judd = 0;
+        for (int j = q; b[j].second == b[q].second; j--)//从最后一个,也就是最小的开始处理
+        {
+            if (c[i] == b[j].first)//如果个数同最小的,则judd = 1,然后向这时的ans中push
+            {
+                judd = 1;
+                break;
+            }
+        }
+        if (judd)
+            ans.push_back(i);
+        else//否则说明是该语音适合更多人
+        {
+            while (c[i] != b[q].first)//直到找到对应的那个q,无需考虑q<0,因为不会存在,不过,鲁棒性的话,emmm,可加
+            {
+                mapp[b[q].first] = 0;//令那些比当前适配适应人数少的map都变为0,这也是要开两个map的原因(因为数据有修改)
+                q--;
+            }
+            ans.clear();//建立新的答案vector
+            ans.push_back(i);
+        }
+    }
+    for (int i = 0; i < ans.size(); i++)//如果语音不属于答案范围,就直接pass
+    {
+        jud[ans[i]] = 1;
+    }
+    q = t;
+    vector<int> anss;//这里新开一个是为了之后的判断,即之前的ans数组还有用
+    for (int i = 1; i <= m; i++)//整体的判断逻辑同上
+    {
+        cin >> d[i];
+        if (!mappp[d[i]])
+            continue;
+        else if (!jud[i])
+            continue;
+        else
+            ;
+        if (d[i] == b[q].first)
+            ans.push_back(i);
+        else
+        {
+            while (d[i] != b[q].first)
+            {
+                mappp[b[q].first] = 0;
+                q--;
+            }
+            anss.clear();
+            anss.push_back(i);
+        }
+    }
+    if (!anss.empty())//这里要注意的是,可能会存在anss甚至ans为空的情况,所以要用两个empty函数判断,分三种情况
+        cout << anss[0];//这里其实输出现在的anss数组中的任意一个均可,但,懒得查找大小,就直接输出第一个了/ww
+    else if (!ans.empty())
+        cout << ans[0];
+    else
+        cout << 1;//如果都为空,说明所有电影都一样(都是没人听懂也没人看懂),那就,摆烂/ww,直接输出第一部电影
+    return 0;
+}
+
+/*
+	!!写题解的时候,忽然想到一个bug,就是我的方法好像,如果都没人听懂,那就直接摆烂随便选了,好像也不看有没有人能看懂了/youl
+			但是,accept了当时,真的,emmm,在acwing上,这就去申请加强数据/ww
+	
+	解决方法就是,在进行字幕的判断的时候,先判断一下ans是否为空,如果为空,那就把所有的jud赋值为true
+	即
+	for (int i = 0; i < ans.size(); i++)//如果语音不属于答案范围,就直接pass
+    {
+        jud[ans[i]] = 1;
+    }
+    --->
+    if(ans.empty())
+    for(int i=0;i<=t;i++) jud[i] = 1;
+    else
+    for (int i = 0; i < ans.size(); i++)//如果语音不属于答案范围,就直接pass
+    {
+        jud[ans[i]] = 1;
+    }
+*/
+```
+
+### 货仓选址
+
+感觉就是一道,说明中位数的,模板题?反正就,属于那种想到了就极其容易,想不到就,拜拜的题,乐
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;
+    int a[100005];
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    sort(a + 1, a + n + 1);
+    int ave = a[n / 2 + 1];//这里属于是，懒省事了，就，奇数偶数一起来,到时候如果没记住的话,其实这种东西,可以举例子判断的/ww
+    long long sum = 0;
+    for (int i = 1; i <= n; i++)
+        sum += abs(a[i] - ave);
+    cout << sum;
+    return 0;
+}
+```
+
+### 七夕祭
+
+这道题,当时还没写的时候,看到题目的第一感觉就是难(莫名的感觉)
+
+不过,在学完前置知识,并且看了书上的思路之后,倒也没感觉有多难了,不过,如果二者缺一,那,emmm,寄
+
+讲真,均分纸牌问题,也属于是,之前没了解过,写了这道题才知道的
+
+这道题的话,第一点要拆分成两个互相独立的部分来写
+
+ 第二点,想到了均分纸牌问题,找到相似之处,并且熟悉均分纸牌问题的解法
+
+ 明白环形均分纸牌问题和普通均分纸牌问题的区别,并且理解了本题出题的本意,也就是选取中位数
+
+如书中所说,此题本来是一道看着比较难的题,但通过一步步的分析,拆解,类比,最终变换为了一些经典问题的集合
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+int row[100005], col[100005];
+int main()
+{
+    int n, m, t;
+    cin >> n >> m >> t;
+
+    for (int i = 0; i < t; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        row[y]++;//计算每行/列所包含的个数
+        col[x]++;
+    }
+    bool jud_row = 1, jud_col = 1;
+    if (t % n)//如果不能整除n或m则肯定无法达到每行/列相同数量的结果
+        jud_row = 0;
+    if (t % m)
+        jud_col = 0;
+    long long cnt = 0;
+    if (jud_row)
+    {
+        int ave = t / n;
+        long long s[100005];
+        s[0] = 0;
+        for (int i = 1; i <= n; i++)//防治越界,所以从1开始
+        {
+            row[i] -= ave;
+            s[i] = s[i - 1] + row[i];
+        }
+        sort(s + 1, s + n + 1);
+        int ve = n / 2 + 1;//计算中位数
+        for (int i = 1; i <= n; i++)
+        {
+            cnt += abs(s[i] - s[ve]);
+        }
+    }
+    if (jud_col)
+    {
+        int ave = t / m;
+        long long ss[100005];
+        ss[0] = 0;
+        for (int i = 1; i <= m; i++)
+        {
+            col[i] -= ave;
+            ss[i] = ss[i - 1] + col[i];
+        }
+        sort(ss + 1, ss + m + 1);
+        int ve = m / 2 + 1;
+        for (int i = 1; i <= m; i++)
+        {
+            cnt += abs(ss[i] - ss[ve]);
+        }
+    }
+    if (jud_col && jud_row)
+        cout << "both ";
+    else if (jud_col)
+        cout << "column ";
+    else if (jud_row)
+        cout << "row ";
+    else
+        cout << "impossible";
+    if (jud_col || jud_row)
+        cout << cnt;
+    return 0;
+}
+```
+
+### Running Median
+
+```
+啊,这道题,因为,听说要用到堆,所以,pass了,之后学完如果能想起来就再回来补/ww
+```
+
+### 奇数码问题
+
+奇数码游戏,两个局面可达,当且仅当两个局面下网格中的数依次写成1行序列(不考虑空格)后,逆序对个数的奇偶性相同
+
+n为偶数时,两局面可达,当且仅当两个局面下网格中的数依次写成1行序列(不考虑空格)后,逆序对数之差和两个局面下空格所在的行数之差奇偶性相同(n为行数,与列数无关)
+
+n*m数码问题的有解性判定,可以转化为归并排序求逆序对来解决
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+long long cnt;
+int a[300000], b[300000];
+void merge(int l, int mid, int r)//计算逆序对的模板(没错,上面的模板就是cv的这里的/ww)
+{
+    if (l == r)
+        return;
+    merge(l, (l + mid) / 2, mid);
+    merge(mid + 1, (mid + 1 + r) / 2, r);
+    int i = l, j = mid + 1;
+    for (int k = l; k <= r; k++)
+        if (j > r || i <= mid && a[i] <= a[j])
+            b[k] = a[i++];
+        else
+            b[k] = a[j++], cnt += mid - i + 1;
+    for (int k = l; k <= r; k++)
+        a[k] = b[k];
+}
+
+int main()
+{
+    int n;
+    while (scanf("%d", &n) != EOF)
+    {
+        if (!n)
+            cin >> n;
+        for (int i = 0; i < n * n - 1; i++)//数据输入进一行,并排除0
+        {
+            cin >> a[i];
+            if (!a[i])
+                cin >> a[i];
+        }
+        cnt = 0;
+        if (n != 1)
+            merge(0, (n * n - 1) / 2, n * n - 1);
+        bool jud = cnt % 2;//判断奇偶性
+        for (int i = 0; i < n * n - 1; i++)
+        {
+            cin >> a[i];
+            if (!a[i])
+                cin >> a[i];
+        }
+        cnt = 0;
+        if (n != 1)
+            merge(0, (n * n - 1) / 2, n * n - 1);
+        if (jud == cnt % 2)//判断奇偶性是否相同
+            cout << "TAK\n";
+        else
+            cout << "NIE\n";
+        if (n == 1)//n==1的话,就是只有一个0,然后,因为上面的循环问题,不会输入,所以需要单独判断一下
+            cin >> n >> n;
+    }
+    return 0;
+}
+```
+
+## 倍增
+
+一种对线性递推的优化方案,通过成倍增长的方式,只递推状态空间中在2的整数次幂位置上的值作为代表
+
+ST算法也是,优秀
+
+模板
+
+```
+void ST_prework()
+{
+	for(int i = 1;i <= n;i++) f[i][0] = a[i];
+    int t = log(n) / log(2) + 1;
+    for(int j = 1;j　< t;j++)//区间的长度
+        for(int i = 1; i <= n - (1<<j) + 1;i++)
+            f[i][j] = max(f[i][j-1] , f[i + (1<<(j-1))][j-1]);
+}
+int ST_query(int l,int r)
+{
+	int k = log(r - l + r) / log(2);//orO(N)预处理一下1~N对应的k值
+    return max(f[l][k] , f[r - (1<<k) + 1][k]);
+}
+```
+
+### Genius ACM
+
+首先,肯定的一点,本题是要用到倍增的,在判断至少要分为几段的时候
+
+但是,这道题最坑的地方,个人感觉不在倍增,而是那个计算校验值的时候,用快排会超时,当时我真的,没有计算时间复杂度,然后开始用快排写的,之后,ACwing就给我弹出了,emmm具体单词忘了,反正就是超时的意思,于是,就又有的书上说的这种类似归并排序的算法
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+int ll, rr;//用ll和rr来储存上一次的左右边界
+long long a[500005];
+long long b[500005];
+long long c[500005];
+void merge(long long l, long long r)//这个函数就是类归并排序
+{
+    int now = l;
+    int i = l, j = rr + 1;
+    for (int k = rr + 1; k <= r; k++)
+        b[k] = a[k];
+    sort(b + rr + 1, b + r + 1);//要注意,这里,要给他们进行一次快排
+    while (now <= r)
+    {
+        if (j > r || (i <= rr && b[i] < b[j]))
+            c[now++] = b[i++];
+        else
+            c[now++] = b[j++];
+    }
+    for (int i = l; i <= r; i++)
+        b[i] = c[i];
+    rr = r;
+}
+long long value(long long l, long long r, long long m)
+{
+    long long ans = 0;
+    if (l == ll && r > rr)//这里说的是,如果左边界没有变,并且r还要大于rr,就可以用这种类归并排序
+        merge(l, r);
+    else//如果变了,那就乖乖快排多好
+    {
+        for (int i = l; i <= r; i++)
+            b[i] = a[i];
+        sort(b + l, b + r + 1);
+        ll = l, rr = r;
+    }
+
+    while (r > l && m--)//这里是对校验值的一个计算
+    {
+        ans += (b[l] - b[r]) * (b[l] - b[r]);
+        l++, r--;
+    }
+    return ans;
+}
+long long m;
+long long k;
+int main()
+{
+    ll = 1e6;//因为ll的初值为0,而第一个,不能直接用那种类归并
+    cin >> k;
+    while (k--)
+    {
+        long long n, t;
+        cin >> n >> m >> t;
+
+        for (long long i = 0; i < n; i++)
+            cin >> a[i];
+
+        long long p = 1, r = 0, l = 0;
+        long long cnt = 0;
+        while (r < n)
+        {
+            p = 1;
+            while (p)//倍增算法
+            {
+                if (r + p < n && value(l, r + p, m) <= t)//注意先后顺序,防止越界
+                    r += p, p *= 2;
+                else
+                    p /= 2;
+            }
+            cnt++;
+            l = r + 1;//下一段的起点
+            r = l;
+        }
+        cout << cnt << '\n';
+    }
+    return 0;
+}
+```
+
+## 贪心
+
+使用要求问题的整体最优性可以由局部最优性导出
+
+证明手段:
+
+ 微扰(邻项交换) : 任何对局部最优策略的微小改变都会导致整体结果变差
+
+ 范围缩放 : 任何对局部最优策略作用范围的扩展都不会造成整体结果变差
+
+ 决策包容性 : 这个局部最优策略提供的可能性包含其他所有策略提供的可能性
+
+ 反证法
+
+ 数学归纳法
+
+感觉贪心问题的话,最主要,最难想到,最难证明的就是贪心的正确性了,证明了正确性之后,其实,挺简单的
+
+### Sunscreen
+
+书上给的是,按minSPF递减排序,然后每次选择SPF最大的防晒霜,感觉也可以maxSPF递增排序,然后每次选择SPF最小的防晒霜,原理是一样的
+
+这道题的贪心证明,感觉应该是范围缩放?因为后面奶牛只会出现,xy,0,x三种情况(在y的SPF大于x的SPF时),所以选择y不会造成更差的结果
+
+感觉,要学到的点就是,化整为零,这么多想不出来就两个两个来
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+bool cmp(pair<int, int> a, pair<int, int> b) // 这里是习惯问题,懒得记参数,所以直接搞一个函数了
+{
+    return a.first > b.first;
+}
+
+int main()
+{
+    int c, l, q;
+    cin >> c >> l;
+    pair<int, int> a[2505];
+    pair<int, int> b[2505];
+    for (int i = 0; i < c; i++)
+        cin >> a[i].first >> a[i].second;
+    for (int i = 0; i < l; i++)
+        cin >> b[i].first >> b[i].second;
+    sort(a, a + c, cmp);
+    sort(b, b + l, cmp);
+    int cnt = 0, now2 = 0;
+    while (now2 < c)
+    {
+        for (int i = 0; i < l; i++)
+        {
+            if (b[i].second && b[i].first >= a[now2].first && b[i].first <= a[now2].second)
+            {
+                cnt++;
+                b[i].second--;
+                break;
+            }
+        }
+        now2++;
+    }
+    cout << cnt;
+    return 0;
+}
+```
+
+### Stall Reservations
+
+这道题的贪心算法是按照开始吃草的时间排序
+
+这属于是,决策包容性?就是如果不优先给开始时间早的,那么之后肯定要新建一个畜栏给它,而在可选的情况下,肯定是优先分配已有畜栏
+
+这破题有一个坑人的地方,就是最后还让输出每头牛对应的畜栏,导致我不能用pair,还要新开一个结构体,写个three(其实应该是third)存一开始的序号
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+struct astr
+{
+    int first;
+    int second;
+    int three;
+};
+
+bool cmp(astr a, astr b)
+{
+    return a.first < b.first;
+}
+int main()
+{
+    int n;
+    cin >> n;
+    astr a[50005];
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i].first >> a[i].second;
+        a[i].three = i + 1;
+    }
+    sort(a, a + n, cmp);
+    vector<int> vec;
+    int tmp[50005];//用来存最后哪头牛别分配到了哪个畜栏
+    int now = 1;
+    vec.push_back(0);//先把开始时间最早的存入(其实好像没必要)
+    tmp[a[0].three] = 1;
+    while (now < n)
+    {
+        bool jud = 0;
+        for (int i = 0; i < vec.size(); i++)
+        {
+            if (a[vec[i]].second < a[now].first)
+            {
+                vec[i] = now;
+                jud = 1;
+                tmp[a[now].three] = i + 1;
+                break;
+            }
+        }
+        if (!jud)
+        {
+
+            vec.push_back(now);
+            tmp[a[now].three] = vec.size();
+        }
+
+        now++;
+    }
+    cout << vec.size() << '\n';
+    for (int i = 1; i <= n; i++)
+        cout << tmp[i] << '\n';
+    return 0;
+}
+```
+
+### Radar Installation
+
+感觉这类题型好像之前也遇到过(好像还是我校的招新赛,好像又没出,忘了/youl,当然,没做出来,当时连转化都没想到)
+
+对于这道题,首先第一点就是要计算出每个建筑物对应的x轴上的点,将问题转化为N个区间内选择最少的点,使每个区间包含至少一个点
+
+然后,就是贪心算法,按左端点从小到大排序,证明就也是决策包容性,首先可以肯定的是要排序,然后如果对左端点排序就从最左边开始,对右端点排序的话就从最右边开始,(其实应该也是可以的,不过,习惯的话,还是从左端点开始吧),然后,就是在满足当前设备的前提下,要尽可能的往后放(为了尽可能满足后面的设备,额,设备指建筑物)
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;
+    long long d;
+    cin >> n >> d;
+    pair<double, double> a[1005];
+    long long x, y;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x >> y;
+        if (y > d)//这里要考虑到,如果纵坐标直接大于d的话,那就pass吧,那肯定是达不到了,直接cout-1,然后return重开吧/ww
+        {
+            cout << "-1";
+            return 0;
+        }
+        double q = sqrt(d * d - y * y);
+        a[i].first = x - q;//这里是区间
+        a[i].second = x + q;
+    }
+    sort(a, a + n);//pair默认的排序方式是按first值进行排序
+    double pos = -1e6;
+    int cnt = 0;
+    int now = 0;
+    while (now < n)
+    {
+        if (pos >= a[now].first)//这里因为开始的区间是排好序的,所以只需要对比最后面的摄像头位置是否在左端点的右面即可
+            pos = min(pos, a[now].second);
+        else
+        {
+            cnt++;
+            pos = a[now].second;
+        }
+        now++;
+    }
+    cout << cnt;
+
+    return 0;
+}
+```
+
+### 国王游戏
+
+感觉这道题的主要难点在于数学公式的分析,这里就体现出来了草稿本的重要性,有时候在纸上写写画画,思路这不就出来了/ww
+
+哦对,还有一个离谱的难点,在于大数的乘除运算,这部分的代码是借鉴的y总的(附链接 [AcWing 114. 国王游戏 - AcWing](https://www.acwing.com/solution/content/1062/))
+
+至于原理,其实就是,相当于模拟了竖式计算,建议当模板记下来
+
+这个贪心算法的证明还是很容易的,吧,就微扰
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+struct aaa
+{
+    int first;
+    int second;
+    int third;
+};
+
+vector<int> mul(vector<int> a, int b)
+{
+    vector<int> c;
+    int t = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        t += a[i] * b;
+        c.push_back(t % 10);
+        t /= 10;
+    }
+    while (t)
+    {
+        c.push_back(t % 10);
+        t /= 10;
+    }
+    return c;
+}
+vector<int> div(vector<int> a, int b)
+{
+    vector<int> c;
+    bool is_first = 1;
+    for (int i = a.size() - 1, t = 0; i >= 0; i--)
+    {
+        t = t * 10 + a[i];
+        int x = t / b;
+        if (!is_first || x)
+        {
+            is_first = 0;
+            c.push_back(x);
+        }
+        t %= b;
+    }
+    reverse(c.begin(), c.end());//这是一个反转函数,也就是,将c中数据反转一下
+    return c;
+}
+vector<int> max_vec(vector<int> a, vector<int> b)//这里是比较大数大小的方法
+{
+    if (a.size() > b.size())
+        return a;
+    if (a.size() < b.size())
+        return b;
+    if (vector<int>(a.rbegin(), a.rend()) > vector<int>(b.rbegin(), b.rend()))
+        return a;
+    return b;
+}
+bool cmp(aaa a, aaa b)
+{
+    return a.third < b.third;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    aaa pai[1005];
+    cin >> pai[0].first >> pai[0].second;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> pai[i].first >> pai[i].second;
+        pai[i].third = pai[i].first * pai[i].second;
+    }
+    sort(pai + 1, pai + n + 1, cmp);
+    vector<int> cheng(1, 1);//建立一个vector,其中包含一个元素,值为1
+    vector<int> res(1, 0);//包含一个元素,值为0
+    for (int i = 0; i <= n; i++)
+    {
+        if (i)
+            res = max_vec(res, div(cheng, pai[i].second));
+        cheng = mul(cheng, pai[i].first);
+    }
+    for (int i = res.size() - 1; i >= 0; i--)
+        cout << res[i];
+    return 0;
+}
+```
+
+### Color a Tree
+
+这道题,emmm,刚开始写的时候因为看到了树,于是就不想写了,直接就,借鉴的y总的代码(链接,同 [AcWing 115. 给树染色 - AcWing](https://www.acwing.com/solution/content/1065/))
+
+放下代码,写下注解吧
+
+```
+#include<bits/stdc++.h>
+using namespace std;
+
+int n,root;
+struct node
+{
+    int p,s,v;//父节点,包含结点数,value
+    double avg;
+}nodes[1010];
+
+int find()//这里是查找等效权值最大的点
+{
+    double avg = 0;
+    int res = -1;
+    for(int i=1;i<=n;i++)
+    {
+        if((i!=root&&nodes[i].avg > avg))
+        {
+            avg = nodes[i].avg;
+            res = i;
+        }
+    }
+    return res;
+}
+
+int main()
+{
+    cin>>n>>root;
+    int ans = 0;
+    for(int i=1;i<=n;i++)//初始化输入
+    {
+        cin>>nodes[i].v;
+        nodes[i].avg = nodes[i].v;
+        nodes[i].s = 1;
+        ans += nodes[i].v;//这里分开计算相加就很优秀,涨知识,这里是加上最开始的值
+    }
+    for(int i=0;i<n-1;i++)
+    {
+        int a,b;
+        cin>>a>>b;
+        nodes[b].p = a;
+
+    }
+    for(int i=0;i<n-1;i++)//找n-1个结点(除根节点外所有)
+    {
+        int p =find();
+        int father = nodes[p].p;
+        ans += nodes[p].v*nodes[father].s;//这里是,按书上说的,放在父节点之后,那就肯定是要加上当前值乘以父节点个数的乘积
+        nodes[p].avg = -1;//这里avg=-1,防止find函数二次查找
+        for(int j=1;j<=n;j++)
+            if(nodes[j].p == p)
+                nodes[j].p = father;
+        nodes[father].v+=nodes[p].v;
+        nodes[father].s+=nodes[p].s;
+        nodes[father].avg = (double)nodes[father].v/nodes[father].s;
+
+    }
+    cout<<ans;
+
+    return 0;
+}
+```
+
+好了,第一章基本算法就,到此结束了(作于2022.08.15 and 16)
