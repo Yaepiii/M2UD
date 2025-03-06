@@ -1,7 +1,7 @@
 ---
 title: "Sensor Setup"
 layout: post
-date: 2025-03-06 12:00
+date: 2025-03-06 13:00
 image: /assets/image/sia.png
 headerImage: false
 tag:
