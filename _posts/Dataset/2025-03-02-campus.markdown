@@ -1,0 +1,34 @@
+---
+title: "Campus"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Campus
+---
+
+# Campus
+
+The campus sequences are a highly structured scene with minimal dynamic objects and a flat-terrain; however, it includes water reflections after rain. This scene poses relatively low difficulty for most SLAM algorithms and is primarily designed to support researchers in evaluating system performance in campus environments, such as for inspection tasks.
+
+![figure](../../assets/image/campus.png)
+
+| Sequence      | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|--------------|-------------|-------------|------------|-------------|-------------|
+| campus_01    | 385.4       | 438.6       | ⭐         | Afternoon, post-rain, water on the ground, good lighting without overexposure, loops around the flowerbed, then around the building. Water reflections affect visual SLAM and LiDAR reflections, some dynamic people. | ground truth |
+| campus_02    | 239.4       | 263.7       | ⭐         | Evening, post-rain, water on the ground, lighting affected, few dynamic people. | ground truth |
+| campus_03    | 381.6       | 439.1       | ⭐⭐        | Up and down the flowerbed, then loops around the grass area beside the main entrance, exits and repeats the flowerbed traversal, returns to the starting point. | ground truth |
+| campus_04    | 304.2       | 345.0       | ⭐⭐        | Afternoon, post-rain, water on the ground, good lighting without overexposure, loops around the grass area beside the main entrance, uneven terrain, unstructured environment, returns to the starting point. | ground truth |
+| campus_05    | 563.6       | 667.6       | ⭐⭐        | Evening, post-rain, water on the ground, lighting affected, large loop, then a lap around the flowerbed, streetlights suddenly turn on during the process, causing lighting variations. | ground truth |
+| campus_06    | 854.0       | 998.3       | ⭐⭐⭐⭐      | Evening, post-rain, lighting affected, brightness variations, large forward loop, uneven terrain, unstructured environment, includes completely dark environments, severely impacting visual SLAM, multiple dynamic people. | ground truth |
+
+
+
+
