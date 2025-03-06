@@ -18,7 +18,7 @@ description: Rural
 
 It includes a large-scale, low-dynamic rural route and small-scale, beautiful flower beds strolling. The terrain is flat; however, the long travel distance often leads to accumulative errors.
 
-![figure](../../assets/image/urban.png)
+![figure](../../assets/image/rural.png)
 
 | Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
 |------------|-------------|-------------|------------|-------------|-------------|
