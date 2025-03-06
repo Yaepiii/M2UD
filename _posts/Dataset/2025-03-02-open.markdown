@@ -1,0 +1,38 @@
+---
+title: "Open"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Open
+---
+
+# Open
+
+These sequences are collected along the shores of Bosten Lake in Xinjiang, China, and in the Urumqi gobi, which are uneven-terrain. Along the lakeshore, swaying reeds are abundant as unstable feature points, and LiDAR scans of the lake surface produce invalid reflections, which poses challenges for SLAM. The gobi is open and untraversed. Due to lack of distinctive features, Both LiDAR and visual SLAM often experience degradation.
+
+![figure](../../assets/image/open.png)
+
+| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
+|------------|-------------|-------------|------------|-------------|-------------|
+| open_01    | 156.4       | 128.6       | ⭐         | Along Bosten Lake, one-way, no reflection points on the left lake, unstable reed features on the right. | ground truth |
+| open_02    | 400.4       | 448.6       | ⭐         | Scenic area beach, one-way, partially closed umbrellas on the right, lake behind, mostly open sandy beach. | ground truth |
+| open_03    | 339.4       | 348.7       | ⭐         | One-way, some structured elements (houses/umbrellas) on the left, lake behind, entirely sandy terrain on the right. | ground truth |
+| open_04    | 122.2       | 140.4       | ⭐         | Short trip near the plant, semi-open environment, mostly flat gravel terrain, one-way, no loops. | ground truth |
+| open_05    | 577.6       | 645.4       | ⭐⭐        | Semi-open field, near an operation area, significant terrain variations, small loops. | ground truth |
+| open_06    | 196.2       | 201.8       | ⭐⭐⭐      | Along Bosten Lake, round-trip, no reflection points on the lake side, unstable reed features on the other, contains reverse loop. | ground truth |
+| open_07    | 752.1       | 893.3       | ⭐⭐⭐      | Long-distance straight-line travel, mostly flat gravel roads, open environment. | ground truth |
+| open_08    | 2511.4      | 2789.9      | ⭐⭐⭐⭐⭐    | Large-scale, ultra and long-distance, open scene + aggressive motion, desert/ice field/permafrost. | ground truth |
+
+
+
+
+
+
