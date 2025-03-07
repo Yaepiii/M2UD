@@ -44,6 +44,7 @@ disqus:
 #linkedin: mylinkedin
 github: yaepiii
 email: yaepii@126.com
+pdf: https://arxiv.org/pdf/2408.05981
 
 
 authors:
@@ -52,7 +53,7 @@ authors:
     bio: B.S in Harbin Institute of Technology; Pursuing the M.S degree with the Shenyang Institute of Automation, Chinese Academy of Sciences.
     external-image: true
     picture: assets/photo.jpg
-    twitter: 123
+    twitter:
 #  jamesfoster:
 #    name: James Foster
 #    bio: A Man who develops software with coffee
