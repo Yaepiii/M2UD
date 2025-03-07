@@ -23,7 +23,7 @@ $$
 EA\text{-}Drift := \frac{\sqrt{\sum_{i=1}^{n} e^{\frac{t_i - \frac{1}{f}}{f}} \lVert P_{i}^{-1}SQ_i \rVert^2 }}{L}
 $$
 
-where, $S$ represents the rigid body transformation obtained as the least squares solution that aligns the estimated trajectory $P_{1:n}$ to the ground truth trajectory $Q_{1:n}$, solved in closed form using the Horn method and automatically aligned using evo, $L$ is estimated path length, $t_i$ represents the time consumption of frame $i$ in ms, and $f$ indicates the sensor frequency. The evaluation metric combines the algorithm's time consumption and the accumulated localization error to form a comprehensive criterion, helping researchers choose a more suitable SLAM algorithm for practical applications. This evaluation has been integrated into evo as EA-evo for ease of use.
+where, $$S$$ represents the rigid body transformation obtained as the least squares solution that aligns the estimated trajectory $$P_{1:n}$$ to the ground truth trajectory $$Q_{1:n}$$, solved in closed form using the Horn method and automatically aligned using evo, $$L$$ is estimated path length, $$t_i$$ represents the time consumption of frame $$i$$ in ms, and $$f$$ indicates the sensor frequency. The evaluation metric combines the algorithm's time consumption and the accumulated localization error to form a comprehensive criterion, helping researchers choose a more suitable SLAM algorithm for practical applications. This evaluation has been integrated into evo as EA-evo for ease of use.
 
 The following table is the sequence for benchmarking:
 
