@@ -5,7 +5,7 @@ layout: page
 <!--![Profile Image]({% if site.external-image %}{{ site.picture }}{% else %}{{ site.url }}/{{ site.picture }}{% endif %})-->
 ![Profile Image](https://yaepiii.github.io/M2UD/assets/robots.png)
 
-<h2>Our Group</h2>
+<h2>Our group</h2>
 
 The **Special Robot Research Group** is established in 1998, belonging to the Shenyang Institute of Automation, Chinese Academy of Sciences, National Key Laboratory of Robotics, and has won **the second prize of National Science and Technology Progress award**. Its research focuses on several advanced areas, including environmental perception and autonomous navigation for special robots, autonomous control of robotic arms, robot simultaneous localization and mapping (SLAM), and multi-robot collaboration systems. There are our group self-developed anti-terrorism and explosive disposal operation series robots.
 
