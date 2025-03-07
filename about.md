@@ -4,7 +4,7 @@ layout: page
 ---
 <!--![Profile Image]({% if site.external-image %}{{ site.picture }}{% else %}{{ site.url }}/{{ site.picture }}{% endif %})
 ![Profile Image](https://yaepiii.github.io/M2UD/assets/robots.png)-->
-<img src="https://yaepiii.github.io/M2UD/assets/robots.png"  width="5000" />
+<img src="https://yaepiii.github.io/M2UD/assets/robots.png"/>
 
 
 <h2>Our group</h2>
