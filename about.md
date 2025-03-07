@@ -4,6 +4,12 @@ layout: page
 ---
 ![Profile Image]({% if site.external-image %}{{ site.picture }}{% else %}{{ site.url }}/{{ site.picture }}{% endif %})
 
+<h2>Our Group</h2>
+
+The **Special Robot Research Group** is established in 1998, belonging to the Shenyang Institute of Automation, Chinese Academy of Sciences, National Key Laboratory of Robotics, and has won **the second prize of National Science and Technology Progress award**. Its research focuses on several advanced areas, including environmental perception and autonomous navigation for special robots, autonomous control of robotic arms, robot simultaneous localization and mapping (SLAM), and multi-robot collaboration systems. There are our group self-developed anti-terrorism and explosive disposal operation series robots.
+
+<h2>About the author</h2>
+
 <p>
 My name is Yanpeng Jia (贾彦鹏), I received the B.S. degree in Department of Mechanical Engineering from Harbin Institute of Technology, Weihai, China in 2023. I’m currently pursuing the M.S degree with the Shenyang Institute of Automation, Chinese Academy of Sciences. My current research interests include robot control, LiDAR Odometry and dynamic SLAM.
 </p>
