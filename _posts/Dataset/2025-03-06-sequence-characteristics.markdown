@@ -35,4 +35,5 @@ Our dataset comprises 58 sequences with specifically designed routes, categorize
 | [plaza](https://yaepiii.github.io/M2UD//plaza/)      | 4      | 41.5      | 4329.1         | 6566.8              | ⭐⭐⭐                   | Indoor, multi-layer, lifts, high-dynamic crowds, flat-terrain. |
 | [corridor](https://yaepiii.github.io/M2UD//corridor/)   | 4      | 5.41      | 605.1          | 686.9               | ⭐⭐⭐                   | Indoor, highly repetitive geometric structures, no dynamics, flat-terrain. |
 | **total**  | **58** | **515.6** | **41792.6**    | **51008.3**         | **⭐⭐⭐**               | **A total of 58 sequences covering common ground robot application scenarios and challenging elements.** |
+| [mapping](https://yaepiii.github.io/M2UD//mapping/)   | 4      | 14.13      | 1,710.41          | 1,869.28               | ⭐⭐⭐                   | Two scenes specifically designed for mapping evaluation. |
 
