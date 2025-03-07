@@ -16,16 +16,16 @@ description: Mapping
 
 # Mapping
 
-We provide the map ground truths for the two scenes and a series of data bags for building the map to facilitate the development and evaluation of SLAM mapping algorithms.
+We provide the map ground truths for the two scenes and a series of data bags for building the map to facilitate the development and evaluation of SLAM mapping algorithms. Additionally .we also provide the reference pose of the corresponding sequence, which is convenient for offline mapping algorithms.
 
 ![figure](../../assets/image/figure8.png)
 
-| Type   | Sequence | Difficulty | Description | Ground Truth |
-|------------|-------------|------------|-------------|-------------|
-| mapping_01   | wheeled-robot-VLP16-2025-01-01-15-56-57      | ⭐⭐        | Flat ground and smooth motion. | ground truth |
-|    | hand-hold-VLP16-2025-01-04-17-24-15       |  ⭐⭐⭐       | Aggressive motion. | ground truth |
-|   | head-hold-VLP16-2025-01-03-14-53-14      |  ⭐⭐⭐       | Aggressive motion. | ground truth |
-| mapping_02   | hand-hold-VLP16-2025-01-04-16-38-15     |  ⭐⭐⭐      | Aggressive motion. | ground truth |
+| Type   | Sequence | Difficulty | Description | Ground Truth | Reference Pose |
+|------------|-------------|------------|-------------|-------------|-------------|
+| mapping_01   | [wheeled-robot-VLP16-2025-01-01-15-56-57](https://1drv.ms/u/c/c1806c2e19f2193f/Ee6VvNTOaQNMsC4DC2TqvucBfLGeK-k2pW5GSytL9e8RRA?e=orArhA)      | ⭐⭐        | Flat ground and smooth motion. | [ground truth](https://1drv.ms/u/c/c1806c2e19f2193f/ESgn9jndiIFNsEwxnddlPQIBek4PcibejL3nPLeOfHn2LQ?e=7STFJx) | [pose](https://1drv.ms/t/c/c1806c2e19f2193f/EVaig78VuWxAnARbA_JH5ioBDPxPo7QoY_LGtak8hzO1YQ?e=qar8GK) |
+|    | [hand-hold-VLP16-2025-01-04-17-24-15](https://1drv.ms/u/c/c1806c2e19f2193f/EQ5PVNSR2cxMqMxBhuDwYdoBgoPEva7nVUGGfl-r6TRpcw?e=XQwcsL)       |  ⭐⭐⭐       | Aggressive motion. | [ground truth](https://1drv.ms/u/c/c1806c2e19f2193f/ESgn9jndiIFNsEwxnddlPQIBek4PcibejL3nPLeOfHn2LQ?e=7STFJx) | [pose](https://1drv.ms/t/c/c1806c2e19f2193f/EVaig78VuWxAnARbA_JH5ioBDPxPo7QoY_LGtak8hzO1YQ?e=dLEAXb) }
+|   | [head-hold-VLP16-2025-01-03-14-53-14](https://1drv.ms/u/c/c1806c2e19f2193f/EQ5PVNSR2cxMqMxBhuDwYdoBgoPEva7nVUGGfl-r6TRpcw?e=tUKc7r)      |  ⭐⭐⭐       | Aggressive motion. | [ground trut](https://1drv.ms/u/c/c1806c2e19f2193f/ESgn9jndiIFNsEwxnddlPQIBek4PcibejL3nPLeOfHn2LQ?e=7STFJx)h | [pose](https://1drv.ms/t/c/c1806c2e19f2193f/EbUql0Y89-xJnq3ZzkGHFjsBlC3ZZZJY4zF6Mrb84kxbsQ?e=5FoDT4) |
+| mapping_02   | [hand-hold-VLP16-2025-01-04-16-38-15](https://1drv.ms/u/c/c1806c2e19f2193f/EbfnrT0bsyVEjAl1ynmSzEoBIQpXqSxbEX-tZ7j-oVnUWw?e=KDVkPf)     |  ⭐⭐⭐      | Aggressive motion. | [ground truth](https://1drv.ms/u/c/c1806c2e19f2193f/EVCv7CSs2X5KvUxUYqUGFtABv3Rt_Rd-bJozIZVi2INh3g?e=kdxneu) | [pose](https://1drv.ms/t/c/c1806c2e19f2193f/EfdE96C89qhBlCCB6eY2dEABc3XANHAJyvL-Kvjo89daRw?e=MOErZU) |
 
 
 
