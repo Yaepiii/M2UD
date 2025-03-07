@@ -36,4 +36,10 @@
             <i class="fa-regular fa-envelope"></i>
         </a>
     {% endif %}
+
+    {% if site.pdf %}
+        <a class="link" data-title="Download PDF" href="{{ site.pdf }}" target="_blank" rel="noopener" alt="anchor link for PDF" aria-label="anchor link for PDF">
+            <i class="fa-regular fa-file-pdf"></i>
+        </a>
+    {% endif %}
 </div>
