@@ -14,6 +14,11 @@ author: Yanpeng Jia
 description: EA-Drift
 ---
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 # EA-Drift
 
 We note that the ATE and the drift rate consider only the localization accuracy of the SLAM algorithm, without accounting for its efficiency into the evaluation. However, real-time performance is an important requirement for the SLAM algorithm. Particularly, in practical robot applications, the SLAM algorithm, as part of the robot system, coexists with other functional algorithms, requiring that its time consumption deployed on mobile computers or even embedded systems be fully considered when selecting the SLAM algorithm. This is because an occasional frame loss may lead to robot collisions, collisions with people, and other safety hazards. Therefore, we propose a novel metric, Efficiency-Aware Drift rate (EA-Drift): 
