@@ -1,0 +1,36 @@
+---
+title: "Mapping"
+layout: post
+date: 2025-03-02 12:00
+image: /assets/image/sia.png
+headerImage: false
+tag:
+- markdown
+- components
+- extra
+hidden: false
+category: Dataset
+author: Yanpeng Jia
+description: Mapping
+---
+
+# Mapping
+
+We provide the map ground truths for the two scenes and a series of data bags for building the map to facilitate the development and evaluation of SLAM mapping algorithms.
+
+![figure](../../assets/image/figure8.png)
+
+| Type   | Sequence | Difficulty | Description | Ground Truth |
+|------------|-------------|------------|-------------|-------------|
+| mapping_01   | wheeled-robot-VLP16-2025-01-01-15-56-57      | ⭐⭐        | Flat ground and smooth motion. | ground truth |
+|    | hand-hold-VLP16-2025-01-04-17-24-15       |  ⭐⭐⭐       | Aggressive motion. | ground truth |
+|   | head-hold-VLP16-2025-01-03-14-53-14      |  ⭐⭐⭐       | Aggressive motion. | ground truth |
+| mapping_02   | hand-hold-VLP16-2025-01-04-16-38-15     |  ⭐⭐⭐      | Aggressive motion. | ground truth |
+
+
+
+
+
+
+
+
