@@ -125,3 +125,7 @@ exclude:
     "notice.md",
   ]
 future: true
+
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
