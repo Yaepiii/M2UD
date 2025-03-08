@@ -10,6 +10,12 @@
             </li>
         {% endif %}
 
+        {% if site.projects == true %}
+            <li class="item">
+                <a class="link" href="{{ site.url }}/projects">Projects</a>
+            </li>
+        {% endif %}
+
         {% if site.setup == true %}
             <li class="item">
                 <a class="link" href="{{ site.url }}/Setup">Setup</a>
@@ -19,12 +25,6 @@
         {% if site.dataset == true %}
             <li class="item">
                 <a class="link" href="{{ site.url }}/Dataset">Dataset</a>
-            </li>
-        {% endif %}
-
-        {% if site.projects == true %}
-            <li class="item">
-                <a class="link" href="{{ site.url }}/projects">Projects</a>
             </li>
         {% endif %}
 
