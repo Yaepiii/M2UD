@@ -18,7 +18,7 @@ description: Calibration and Time Synchronization
 
 Our dataset offers precise intrinsic and extrinsic calibration parameters, and the coordinate systems of the sensors in both robots as shown in Figure 4. This section presents the calibration methods and procedures. The parameters for all sequences are generated using the [development kits](https://github.com/Yaepiii/M2UD/Development_Kit) and stored in ```calibration.yaml```.
 
-![figure](../../assets/image/figure4.png)
+![figure](../../assets/image/figure3.png)
 
 1. **Intrinsic calibration:** For the camera intrinsic parameters, we use the manufacturer-provided intrinsic parameters for the color and depth cameras. Then, we collect a set of calibration images with a self-designed calibration board for validating the accuracy of these parameters using the MATLAB Camera Toolbox. The IMU intrinsic parameters are obtained by recording a static IMU sequence for over six hours at 200 Hz. The intrinsic parameters, including noise density and random walk bias, are calibrated using the [imu_utils](https://github.com/gaowenliang/imu\_utils) toolbox. To support the validation of other calibration algorithms, the [calibration sequences](https://1drv.ms/f/c/c1806c2e19f2193f/Emnejgu3QXlIjV98CUbzDhoBd9cvpDwOOFe0OBqqwBHOGQ?e=USBC7q) are publicly available alongside the dataset.
 
@@ -26,4 +26,4 @@ Our dataset offers precise intrinsic and extrinsic calibration parameters, and t
 
 3. **Time synchronization:** Instead of using hardware signals to trigger all sensors simultaneously, we record data from different sensors with the same system timestamp. In other word, LiDAR, camera, and IMU are synchronized via software by calling the APIs to trigger data capture at the same instance. Test results indicate that this software-based synchronization method achieves a time synchronization accuracy of less than 10 ms.
 
-![figure](../../assets/image/figure5.png)
+![figure](../../assets/image/figure4.png)
