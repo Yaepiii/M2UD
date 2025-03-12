@@ -20,9 +20,9 @@ To enhance usability and facilitate evaluation, a series of development kits are
 
 1. **Ground Truth Smooth:** The *groundtruth_create.cpp* file reads the RTK topic from the bag file and smooths the data. Eventually, it creates a ```GTCreate``` folder in the same directory and generates four files: timestamps, raw RTK data, smoothed ground truth values at the RTK frequency, and ground truth values at the LiDAR frequency.
 
-2. **File Format Conversion:** The *bag2file.cpp* file reads topics from the bags and converts color images, depth images, and point clouds into 8-bit ```.png``` files and ```.bin``` binary files, respectively, naming them based on timestamps. It stores accelerometer, gyroscope, and magnetometer data from the IMU in a ```.csv``` file, the RTK data and smoothed trajectory ground truth in ```.txt``` files, and the sensor extrinsic and intrinsic parameters of the recording platform in a ```calibration.yaml``` file. The resulting file structure is illustrated in Figure 10.
+2. **File Format Conversion:** The *bag2file.cpp* file reads topics from the bags and converts color images, depth images, and point clouds into 8-bit ```.png``` files and ```.bin``` binary files, respectively, naming them based on timestamps. It stores accelerometer, gyroscope, and magnetometer data from the IMU in a ```.csv``` file, the RTK data and smoothed trajectory ground truth in ```.txt``` files, and the sensor extrinsic and intrinsic parameters of the recording platform in a ```calibration.yaml``` file. The resulting file structure is illustrated in Figure 9.
 
-![figure](../../assets/image/figure10.png)
+![figure](../../assets/image/figure9.png)
 
 3. **Time Alignment:** The *time_align.cpp* file is primarily used to evaluate localization accuracy. Since some algorithms that adopt the keyframe strategy and incorporate a loop closure detection module (e.g., LIO-SAM) may produce sparse trajectories for evaluation, the resulting trajectory may appear discontinuous when compared with the ground truth. This tool interpolates the algorithm's output based on the timestamps of the ground truth, enabling a more reasonable and continuous evaluation of localization accuracy.
 
