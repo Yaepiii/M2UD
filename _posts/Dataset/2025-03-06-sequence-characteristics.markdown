@@ -16,9 +16,9 @@ description: Sequence Characteristics
 
 # Sequence Characteristics
 
-![figure](../../assets/image/figure6.png)
+![figure](../../assets/image/figure5.png)
 
-Our dataset comprises 58 sequences with specifically designed routes, categorized into 12 types based on collection scenarios or characteristics, with difficulty levels assigned for user reference. Figure 6 presents a first-person view of the robot during data recording, illustrating that the sequences contain common application scenarios of ground robots as well as challenging conditions, including complete darkness (Figure 6 (A)), textureless (Figure 6 (B)), lift (Figure 6 (C)), overexposure (Figure 6 (D), (E)), reflections (Figure 6 (F)–(H)), extreme weather conditions (Figure 6 (I)–(K)), aggressive motion (Figure 6 (L)–(O)), dynamic objects (Figure 6 (P)–(T)), and open areas or highly-repetitive structures (Figure 6 (U)–(Y)). Our dataset offers trajectories and two maps ground truth, which can be directly utilized for evaluating localization and mapping in SLAM. The details of the 12 categories are presented in the following table.
+Our dataset comprises 58 sequences with specifically designed routes, categorized into 12 types based on collection scenarios or characteristics, with difficulty levels assigned for user reference. Figure 5 presents a first-person view of the robot during data recording, illustrating that the sequences contain common application scenarios of ground robots as well as challenging conditions, including complete darkness (Figure 5 (A)), textureless (Figure 5 (B)), lift (Figure 5 (C)), overexposure (Figure 5 (D), (E)), reflections (Figure 5 (F)–(H)), extreme weather conditions (Figure 5 (I)–(K)), aggressive motion (Figure 5 (L)–(O)), dynamic objects (Figure 5 (P)–(T)), and open areas or highly-repetitive structures (Figure 5 (U)–(Y)). Our dataset offers trajectories and two maps ground truth, which can be directly utilized for evaluating localization and mapping in SLAM. The details of the 12 categories are presented in the following table.
 
 | Scene      | Number | Size (GB) | Total Time (s) | Total Distance (m) | Average Difficulty       | Description |
 |------------|--------|-----------|----------------|---------------------|--------------------------|-------------|
