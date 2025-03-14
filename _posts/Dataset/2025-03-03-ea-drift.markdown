@@ -45,8 +45,8 @@ The following table is the sequence for benchmarking:
 
 The qualitative results are presented below, and more results can be found in our paper.
 
+![figure](../../assets/image/figure10.png)
+
 ![figure](../../assets/image/figure11.png)
 
 ![figure](../../assets/image/figure12.png)
-
-![figure](../../assets/image/figure13.png)
