@@ -1,63 +1,10 @@
-<p align="center">
-    <h2 align="center">Indigo Minimalist Jekyll Template - <a href="https://sergiokopplin.github.io/indigo/">Demo</a></h2>
-</p>
+# :crystal_ball: M2UD: A Multi-model, Multi-scenario, Uneven-terrain Dataset for Ground Robot with Localization and Mapping Evaluation
 
-<p align="center">This is a simple and minimalist template for Jekyll for those who likes to eat noodles.</p>
+**M2UD** is a multi-modal, multi-scenario, uneven-terrain SLAM dataset for ground robots. This dataset contains a diverse range of highly challenging environments, including cities, villages, open fields, long corridors, plazas, underground parking, and mixed scenarios. Additionally, it presents extreme weather conditions such as darkness, smoke, snow, and dust. The aggressive motion and degradation characteristics of this dataset not only pose challenges for testing and evaluating existing SLAM methods but also advance the development of more advanced SLAM algorithms. To benchmark SLAM algorithms, M2UD provides smoothed ground truth localization data obtained via Real-time Kinematics (RTK) and introduces a novel localization evaluation metric that considers both accuracy and efficiency. Additionally, we utilize a high-precision millimeter-level laser scanner to acquire ground truth maps of two representative scenes, facilitating the development and evaluation of mapping algorithms. We select 12 localization sequences and 2 mapping sequences to evaluate several classical LiDAR and visual SLAM algorithms, verifying usability of the dataset. To enhance usability, the dataset is accompanied by a suite of development kits, including data transformation, timestamp alignment, ground truth smooth.
 
-***
+Welcome to our [website](https://yaepiii.github.io/M2UD/) for more details.
 
-<p align="center">
-    <b><a href="README.md#what-has-inside">What has inside</a></b>
-    |
-    <b><a href="README.md#setup">Setup</a></b>
-    |
-    <b><a href="README.md#settings">Settings</a></b>
-    |
-    <b><a href="README.md#how-to">How to</a></b>
-</p>
+[![M2UD](https://res.cloudinary.com/marcomontalbano/image/upload/v1742215680/video_to_markdown/images/youtube--Vcbka12Dah4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=Vcbka12Dah4&t=1s "M2UD")
 
-<p align="center">
-    Light and Dark themes.
-</p>
+If you think our work useful for your research, please cite:
 
-<p align="center">
-    <img src="https://raw.githubusercontent.com/sergiokopplin/indigo/gh-pages/assets/screen-shot.png" />
-</p>
-
-## What has inside
-
-- [Jekyll](https://jekyllrb.com/), [Sass](https://sass-lang.com/) ~[RSCSS](https://rscss.io/)~ and [SVG](https://www.w3.org/Graphics/SVG/);
-- Page Speed: [99~Desktop](https://pagespeed.web.dev/analysis/https-sergiokopplin-github-io-indigo/41axptm3as?utm_source=psi&utm_medium=redirect&form_factor=desktop);
-
-## Setup
-
-0. :star: to the project. :metal:
-1. Fork the project [Indigo](https://github.com/sergiokopplin/indigo/fork)
-2. Edit `_config.yml` with your data
-3. Write some posts :bowtie:
-
-To run locally do the following:
-
-1. Install [Jekyll](https://jekyllrb.com) and [Bundler](https://bundler.io/).
-2. Clone the forked repo on your machine
-3. Enter the cloned folder via terminal and run:
-```sh
-bundle install
-bundle exec jekyll serve
-```
-4. Open it in your browser: [http://localhost:4000](http://localhost:4000)
-
-Or run with [docker](https://github.com/BretFisher/jekyll-serve).
-
-## Settings
-
-You can customize your site on `_config.yml` file.
-
-## How To?
-
-Check the [FAQ](./FAQ.md).
-
----
-## License
-
-[MIT](https://kopplin.mit-license.org/) License © Sérgio Kopplin
