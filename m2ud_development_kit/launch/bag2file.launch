@@ -1,0 +1,13 @@
+<launch>
+
+    <param name="rosbag_path" type="string" value="/your/bag/file/path/root/"/>
+    <param name="rosbag_file" type="string" value="your_bag_file.bag"/>
+    <param name="RTK_topic" type="string" value="/RTK/data"/>
+    <param name="IMU_topic" type="string" value="/imu/data"/>
+    <param name="Mag_topic" type="string" value="/imu/mag"/>
+    <param name="LiDAR_topic" type="string" value="/velodyne_points"/>
+    <param name="Camera_topic" type="string" value="/camera/color"/>
+    <param name="Depth_topic" type="string" value="/camera/depth"/>
+    <node pkg="m2ud_development_kit" type="bag2file" name="bag2file" output="screen"/>
+    
+</launch>

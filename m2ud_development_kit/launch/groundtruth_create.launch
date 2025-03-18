@@ -1,0 +1,11 @@
+<launch>
+
+    <param name="rosbag_path" type="string" value="/your/bag/file/path/root/"/>
+    <param name="rosbag_file" type="string" value="your_bag_file.bag"/>
+    <param name="RTK_topic" type="string" value="/RTK/data"/>
+    <node pkg="m2ud_development_kit" type="groundtruth_create" name="groundtruth_create" output="screen"/>
+    <arg name="rviz" default="true" />
+    <group if="$(arg rviz)">
+        <node launch-prefix="nice" pkg="rviz" type="rviz" name="show_fix_RTK" args="-d $(find deal_kit)/config/show_fix_RTK.rviz" />
+    </group>
+</launch>

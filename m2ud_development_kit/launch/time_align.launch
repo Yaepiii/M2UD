@@ -1,0 +1,6 @@
+<launch>
+    <param name="groundtruth" type="string" value="/reference/file.txt"/>
+    <param name="before_data" type="string" value="/estimated/file.txt"/>
+    <param name="after_data" type="string" value="/time/aligned/file.txt"/>
+    <node pkg="m2ud_development_kit" type="time_align" name="time_align" output="screen"/>
+</launch>
