@@ -62,12 +62,12 @@ class UploadCommand(Command):
 
 # yapf: disable
 setup(
-    name="EA-evo",
+    name="evo",
     version=open("evo/version").read(),
     description="Python package for the evaluation of odometry and SLAM with efficiency",
     author="Yanpeng Jia",
     author_email="yaepiii@126.com",
-    url="https://github.com/Yaepiii/EA-evo",
+    url="https://github.com/Yaepiii/M2UD/m2ud_development_kit/EA-evo",
     license="GPLv3",
     long_description=open(HERE / "README.md").read(),
     long_description_content_type="text/markdown",
