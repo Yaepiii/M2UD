@@ -106,11 +106,26 @@ You can download the example file - FAST-LIO2 result in M2UD aggressive_04 seque
 
 If everything is set up correctly, you should see results similar to the following:
 
+<div align=center>
+<img src="../../assets/example1-1.png" width = "640" height = "360" alt="example1-1"/>
+</div>
+
+<div align=center>
+<img src="../../assets/example1-2.png" width = "640" height = "480" alt="example1-1"/>
+</div>
 
 We have integrated Drift rate calculation. If you do not want to use **EA-Drit** and only want to check the **Drift (%)** of SLAM algorithm, you only need to leave the parameters `-e` and `-q` unset.
 ```
 evo_ape tum groundtruth.txt your_estimated_trajectory.txt -a -p
 ```
+
+<div align=center>
+<img src="../../assets/example2-1.png" width = "640" height = "360" alt="example2-1"/>
+</div>
+
+<div align=center>
+<img src="../../assets/example2-2.png" width = "640" height = "480" alt="example2-1"/>
+</div>
 
 Note that the calculated **Drift** is defined as:
 
