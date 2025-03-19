@@ -28,6 +28,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <yaml-cpp/yaml.h>
+#include <std_msgs/Float32.h>
 
 using namespace std;
 
@@ -129,3 +130,21 @@ int32_t openDirAndMkdir(const char* pathname)
 bool cmp(const pair<int, double>& a, const pair<int, double>& b) {
     return a.second < b.second;
 }
+
+typedef struct
+{
+    std_msgs::Header header;
+    double t = 0;
+    double status = 0;
+    double HDOP = 99, VDOP = 99;
+    int Num_satellites = 0;
+    double longitude = 0, latitude = 0, altitude = 0, direction = 0;
+
+    double lon_bias = 0, lat_bias = 0, alt_bias = 0, dir_bias = 0;
+
+    double roll = 0, pitch = 0, yaw = 0;
+
+    Eigen::Quaterniond q_eigen = Eigen::Quaterniond::Identity(); 
+    Eigen::Matrix3d Rwc = Eigen::Matrix3d::Identity();
+    Eigen::Matrix3d Rbi = Eigen::Matrix3d::Identity();
+} GNSS_s;

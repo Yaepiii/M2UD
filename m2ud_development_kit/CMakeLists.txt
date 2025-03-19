@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   message_filters
   cv_bridge
+  serial
 )
 
 find_package(Eigen3 REQUIRED)
@@ -35,6 +36,7 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   ${YAML_CPP_INCLUDE_DIR}
+  ${serial_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -50,3 +52,6 @@ target_link_libraries(time_align ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 add_executable(bag2file src/bag2file.cpp)
 target_link_libraries(bag2file ${catkin_LIBRARIES} ${OpenCV_LIBS} ${YAML_CPP_LIBRARIES})
+
+add_executable(RTK_process src/RTK_process.cpp)
+target_link_libraries(RTK_process ${catkin_LIBRARIES} ${EIGEN_LIBRARIES} ${serial_LIBRARIES})
