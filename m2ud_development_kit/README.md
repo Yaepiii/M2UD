@@ -68,8 +68,15 @@ roslaunch m2ud_development_kit time_align.launch
 
 The results are shown like:
 
+Before:
 <div align=center>
-<img src="../assets/example3-1.png" alt="figure6"/> <img src="../assets/example3-2.png" alt="figure6"/>
+<img src="../assets/example3-1.png" alt="example3-1"/>
+</div>
+
+After:
+
+<div align=center>
+<img src="../assets/example3-2.png" alt="example3-2"/>
 </div>
 
 ### 4. RTK Topic Publisher
