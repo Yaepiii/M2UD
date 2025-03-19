@@ -1,0 +1,4 @@
+<launch>
+    <!-- output="screen" launch-prefix="gnome-terminal -e" launch-prefix="xterm -e gdb -ex run args" -->
+    <node pkg="robot" type="RTK_process" name="RTK_process"> </node>
+</launch>
