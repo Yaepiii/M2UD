@@ -20,12 +20,12 @@ Artificial smoke is generated in the gobi scenario, and robot is deployed to nav
 
 ![figure](../../assets/image/smoke.png)
 
-| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Ground Truth |
-|------------|-------------|-------------|------------|-------------|-------------|
-| [smoke_01](https://1drv.ms/u/c/c1806c2e19f2193f/ESP7ZtyDVvxAsjx80lMOSykBnomE7EoaViYLUTjKbz5Kng?e=3PVEZW)   | 263.5       | 245.9       | ⭐⭐        | Two small loops, terrain variation, slightly open environment, white smoke, minimal visual impact. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EZSHAXofGtpNl6-KIdcM5o4BAV7bzLEPiRPdquPSDW8LZA?e=FfXBc5) |
-| [smoke_02](https://1drv.ms/u/c/c1806c2e19f2193f/ERQjmQmDijRHldUmveRm7kgBHC50PRAXZp62pgf7TWtJ3w?e=3yMdrz)   | 223.6       | 240.8       | ⭐⭐⭐       | Small loop, extreme terrain variation, slightly open environment, black smoke, significant visual impact. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EU0oHOr7wVZMiHfl6dgtjN0BDpkrEOW63HgdOAxaRgwMZw?e=NyuXLz) |
-| [smoke_03](https://1drv.ms/u/c/c1806c2e19f2193f/Eer1gv3_UYBGkqLRx8iasBQBMd2TteobWmCVcR-2tr299g?e=Kw3GQR)   | 388.6       | 419.0       | ⭐⭐⭐       | Two small loops, more extreme terrain variation, open environment, white smoke, minimal visual impact. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/EQYPK_bbCz1OuEx3jez31DgBz4Zmgvw-Ymh3Cdcay2ZLTA?e=apte8F) |
-| [smoke_04](https://1drv.ms/u/c/c1806c2e19f2193f/EdiGSPTOKt1IoINrNaV1KcMBJLt1jSeFEVgpFegnONxNnQ?e=Hfdg4W)   | 279.8       | 259.2       | ⭐⭐⭐⭐      | Small loop, more extreme terrain variation, open environment, white smoke, severe visual obstruction. | [ground truth](https://1drv.ms/t/c/c1806c2e19f2193f/Ech272KL_chOhBFsV9hy3PUB7voVFf0R1mHv4FUx0Edw1w?e=JO8bNF) |
+| Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Bag | Ground Truth |
+|------------|-------------|-------------|------------|-------------|-------------|-------------|
+|  smoke_01 | 263.5       | 245.9       | ⭐⭐        | Two small loops, terrain variation, slightly open environment, white smoke, minimal visual impact. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/ESP7ZtyDVvxAsjx80lMOSykBnomE7EoaViYLUTjKbz5Kng?e=3PVEZW) 百度网盘 | [OneDrive](https://1drv.ms/t/c/c1806c2e19f2193f/EZSHAXofGtpNl6-KIdcM5o4BAV7bzLEPiRPdquPSDW8LZA?e=FfXBc5) 百度网盘 |
+|  smoke_02  | 223.6       | 240.8       | ⭐⭐⭐       | Small loop, extreme terrain variation, slightly open environment, black smoke, significant visual impact. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/ERQjmQmDijRHldUmveRm7kgBHC50PRAXZp62pgf7TWtJ3w?e=3yMdrz) 百度网盘 | [OneDrive](https://1drv.ms/t/c/c1806c2e19f2193f/EU0oHOr7wVZMiHfl6dgtjN0BDpkrEOW63HgdOAxaRgwMZw?e=NyuXLz) 百度网盘 |
+|  smoke_03  | 388.6       | 419.0       | ⭐⭐⭐       | Two small loops, more extreme terrain variation, open environment, white smoke, minimal visual impact. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/Eer1gv3_UYBGkqLRx8iasBQBMd2TteobWmCVcR-2tr299g?e=Kw3GQR) 百度网盘 | [OneDrive](https://1drv.ms/t/c/c1806c2e19f2193f/EQYPK_bbCz1OuEx3jez31DgBz4Zmgvw-Ymh3Cdcay2ZLTA?e=apte8F) 百度网盘 |
+|  smoke_04  | 279.8       | 259.2       | ⭐⭐⭐⭐      | Small loop, more extreme terrain variation, open environment, white smoke, severe visual obstruction. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/EdiGSPTOKt1IoINrNaV1KcMBJLt1jSeFEVgpFegnONxNnQ?e=Hfdg4W) 百度网盘 | [OneDrive](https://1drv.ms/t/c/c1806c2e19f2193f/Ech272KL_chOhBFsV9hy3PUB7voVFf0R1mHv4FUx0Edw1w?e=JO8bNF) 百度网盘 |
 
 
 
