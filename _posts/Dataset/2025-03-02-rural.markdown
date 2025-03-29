@@ -23,7 +23,7 @@ It includes a large-scale, low-dynamic rural route and small-scale, beautiful fl
 | Sequence   | Duration (s) | Distance (m) | Difficulty | Description | Bag | Ground Truth |
 |------------|-------------|-------------|------------|-------------|-------------|-------------|
 |  rural_01  | 463.6       | 570.9       | ⭐         | Morning garden bed, unstructured environment, includes forward/reverse/extreme loops, water mist spraying in the garden causes unstable LiDAR point clouds, no dynamic elements. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/EbIBPMQxrZ1Kk6i0bimlpd8BaKUWKYbxIYxD1LWoyHcC9A?e=2P4ZOz) [百度网盘](https://pan.baidu.com/s/1eVdCFfMXhOkY8HUT9Xyh1Q?pwd=t4uv) | [OneDrive](https://1drv.ms/t/c/c1806c2e19f2193f/EcStSmFJINBEmOh-VRMb9eYBaFVfPx1U5kYsUyYkYoqoUQ?e=BylNjX) [百度网盘](https://pan.baidu.com/s/1J-H4ehje9Sg2eEQZQH-pRg?pwd=wnsr) |
-|  rural_02  | 2648.3      | 3264.6      | ⭐⭐⭐⭐⭐     | Rural environment, large-scale (~3.2 km), few dynamic elements (cars/tractors/people), includes long forward and reverse closed loops, diverse scenes. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/EWwFUdj_lJRLhPgIDeOGF5YBIvOfEahNrdugIaopByrx4Q?e=5W57x7) [百度网盘](https://pan.baidu.com/s/1CFCfsNN4bspT6SfgedoGmA?pwd=wyu8) | - |
+|  rural_02  | 2648.3      | 3264.6      | ⭐⭐⭐⭐⭐     | Rural environment, large-scale (~3.2 km), few dynamic elements (cars/tractors/people), includes long forward and reverse closed loops, diverse scenes. | [OneDrive](https://1drv.ms/u/c/c1806c2e19f2193f/EWwFUdj_lJRLhPgIDeOGF5YBIvOfEahNrdugIaopByrx4Q?e=5W57x7) [百度网盘](https://pan.baidu.com/s/1CFCfsNN4bspT6SfgedoGmA?pwd=wyu8) |  |
 
 
 
