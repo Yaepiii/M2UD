@@ -7,4 +7,14 @@ Welcome to our [website](https://yaepiii.github.io/M2UD/) for more details.
 [![M2UD](https://res.cloudinary.com/marcomontalbano/image/upload/v1742215680/video_to_markdown/images/youtube--Vcbka12Dah4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=Vcbka12Dah4&t=1s "M2UD")
 
 If you think our work useful for your research, please cite:
-
+```
+@misc{jia2025m2udmultimodelmultiscenariouneventerrain,
+      title={M2UD: A Multi-model, Multi-scenario, Uneven-terrain Dataset for Ground Robot with Localization and Mapping Evaluation}, 
+      author={Yanpeng Jia and Shiyi Wang and Shiliang Shao and Yue Wang and Fu Zhang and Ting Wang},
+      year={2025},
+      eprint={2503.12387},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2503.12387}, 
+}
+```
