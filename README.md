@@ -6,6 +6,11 @@ Welcome to our [website](https://yaepiii.github.io/M2UD/) for more details.
 
 [![M2UD](https://res.cloudinary.com/marcomontalbano/image/upload/v1742215680/video_to_markdown/images/youtube--Vcbka12Dah4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=Vcbka12Dah4&t=1s "M2UD")
 
+## :mega: New
+
+- Mar. 06. 2025: :smiley_cat: Development kits are released!
+- Mar. 02. 2025: :smiley_cat: All sequences are released!
+
 If you think our work useful for your research, please cite:
 ```
 @misc{jia2025m2udmultimodelmultiscenariouneventerrain,
