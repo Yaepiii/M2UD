@@ -1,0 +1,44 @@
+robot: 6_wheeled_robot
+imu:
+  acc_cov: 0.01116538428574859
+  gyr_cov: 0.01021842828910028
+  b_acc_cov: 0.0001655494714211767
+  b_gyr_cov: 9.14897204153543e-05
+camera:
+  intrinsic:
+    fx: 647.7983286081291
+    fy: 648.7494988572309
+    u0: 634.847217797169
+    v0: 369.621588030686
+  distcoeff:
+    k1: -0.0435054940545947
+    k2: 0.0452193980011014
+extrinsic:
+  lidar_to_imu:
+    roll: 179.603
+    pitch: -179.624
+    yaw: -179.937
+    x: 0.76802
+    y: -0.11605
+    z: 0.2772
+  lidar_to_robot:
+    roll: 0
+    pitch: 0
+    yaw: 0
+    x: 0
+    y: 0
+    z: 0.45
+  lidar_to_camera:
+    roll: -88.99954700000001
+    pitch: 0.130808
+    yaw: -89.668972
+    x: -0.012008
+    y: -0.12963
+    z: -0.044118
+topic:
+  RTK: /RTK/data
+  color_image: /camera/color
+  depth_image: /camera/depth
+  point_cloud: /velodyne_points
+  imu: /imu/data
+  mag: /imu/mag
