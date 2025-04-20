@@ -16,7 +16,16 @@ description: Calibration and Time Synchronization
 
 # Calibration and Time Synchronization
 
-Our dataset offers precise intrinsic and extrinsic calibration parameters, and the coordinate systems of the sensors in both robots as shown in Figure 3. This section presents the calibration methods and procedures. The parameters for all sequences are generated using the [development kits](https://github.com/Yaepiii/M2UD/Development_Kit) and stored in ```calibration.yaml```.
+Our dataset offers precise intrinsic and extrinsic calibration parameters, and the coordinate systems of the sensors in both robots as shown in Figure 3. This section presents the calibration methods and procedures. ~~The parameters for all sequences are generated using the [development kits](https://github.com/Yaepiii/M2UD/Development_Kit) and stored in ```calibration.yaml```~~.
+
+:sparkles::sparkles::sparkles:
+
+The intrinsic and extrinsic parameters of the sequences recorded outdoors using the 6-wheeled robot platform can be found [here](https://github.com/Yaepiii/M2UD/blob/main/calibration/6wheel-outdoor.yaml).
+
+The intrinsic and extrinsic parameters of the sequences recorded indoors using the 4-wheeled robot platform can be found [here](https://github.com/Yaepiii/M2UD/blob/main/calibration/4wheel-indoor.yaml).
+
+:sparkles::sparkles::sparkles:
+
 
 ![figure](../../assets/image/figure3.png)
 
