@@ -8,8 +8,10 @@ Welcome to our [website](https://yaepiii.github.io/M2UD/) for more details.
 
 ## :mega: New
 
-- Mar. 06. 2025: :smiley_cat: Development kits are released!
-- Mar. 02. 2025: :smiley_cat: All sequences are released!
+- Apr. 20. 2025: ✨ Update the [calibration parameters](https://github.com/Yaepiii/M2UD/tree/main/calibration)! Usage introduction can be found [here](https://yaepiii.github.io/M2UD//calibration-and-time-synchronization/)!
+- Apr. 19. 2025: 😸 A bug in the RPE of [EA-evo](https://github.com/Yaepiii/M2UD/tree/main/m2ud_development_kit/EA-evo) has been fixed!
+- Mar. 06. 2025: 🏁 Development kits are released!
+- Mar. 02. 2025: 💖 All sequences are released!
 
 If you think our work useful for your research, please cite:
 ```
