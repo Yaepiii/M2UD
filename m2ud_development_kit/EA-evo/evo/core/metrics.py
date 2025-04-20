@@ -220,6 +220,7 @@ class RPE(PE):
         self.E: typing.List[np.ndarray] = []
         self.error = np.array([])
         self.delta_ids: typing.List[int] = []
+        self.drift: float = 0.0
         if pose_relation in (PoseRelation.translation_part,
                              PoseRelation.point_distance):
             self.unit = Unit.meters
