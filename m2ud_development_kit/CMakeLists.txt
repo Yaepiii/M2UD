@@ -55,3 +55,6 @@ target_link_libraries(bag2file ${catkin_LIBRARIES} ${OpenCV_LIBS} ${YAML_CPP_LIB
 
 add_executable(RTK_process src/RTK_process.cpp)
 target_link_libraries(RTK_process ${catkin_LIBRARIES} ${EIGEN_LIBRARIES} ${serial_LIBRARIES})
+
+add_executable(give_pc_time_and_ring src/give_pc_time_and_ring.cpp)
+target_link_libraries(give_pc_time_and_ring ${catkin_LIBRARIES} ${PCL_LIBRARIES})
