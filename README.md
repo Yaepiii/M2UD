@@ -8,6 +8,7 @@ Welcome to our [website](https://yaepiii.github.io/M2UD/) for more details.
 
 ## :mega: New
 
+- Apr. 25. 2025: 🛎️ Upload a [tool package](https://github.com/Yaepiii/M2UD/blob/main/m2ud_development_kit/launch/give_pc_time_and_ring.launch) that can run together with SLAM system for giving point cloud 'time' field and republishing '/velodyne_points2' topic!
 - Apr. 20. 2025: ✨ Update the [calibration parameters](https://github.com/Yaepiii/M2UD/tree/main/calibration)! Usage introduction can be found [here](https://yaepiii.github.io/M2UD//calibration-and-time-synchronization/)!
 - Apr. 19. 2025: 😸 A bug in the RPE of [EA-evo](https://github.com/Yaepiii/M2UD/tree/main/m2ud_development_kit/EA-evo) has been fixed!
 - Mar. 06. 2025: 🏁 Development kits are released!
