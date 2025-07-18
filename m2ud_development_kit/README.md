@@ -94,6 +94,17 @@ To facilitate the evaluation of localization accuracy using the novel metric-"[E
 
 See this [link](https://github.com/Yaepiii/M2UD/tree/main/m2ud_development_kit/EA-evo) for more details on how to use it
 
+### 6. Noise Adder
+
+To help users determine the effects of those challenges on their algorithms, we develop
+a script that assists users in evaluating how sensor quality affect localization performance. The point
+clouds and images generated under different noise level using this script are presented in the following figure.
+
+<div align=center>
+<img src="../assets/image/figure13.png" alt="figure13"/>
+</div>
+
+
 
 
 
