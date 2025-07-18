@@ -1,0 +1,23 @@
+<launch>
+    <node pkg="deal_kit" type="noise_adder_node" name="rosbag_noise_adder" output="screen">
+        <!-- noise params -->
+        <param name="point_cloud_noise_stddev" type="double" value="0.1" />
+        <param name="imu_linear_noise_stddev" type="double" value="0.1" />
+        <param name="imu_angular_noise_stddev" type="double" value="0.1" />
+        <param name="image_noise_stddev" type="double" value="1" />
+        
+        <!-- input topic -->
+        <param name="input_point_cloud_topic" type="string" value="/velodyne_points" />
+        <param name="input_imu_topic" type="string" value="/imu/data" />
+        <param name="input_image_topic" type="string" value="/camera/color" />
+        
+        <!-- output noise -->
+        <param name="output_point_cloud_topic" type="string" value="/noisy_velodyne_points" />
+        <param name="output_imu_topic" type="string" value="/noisy_imu/data" />
+        <param name="output_image_topic" type="string" value="/noisy_camera/color" />
+        
+        <!-- bag file path -->
+        <param name="input_bag_path" type="string" value="/media/jyp/JYP-4T/四轮/1星/2024-12-06-20-13-48.bag" />
+        <param name="output_bag_path" type="string" value="/media/jyp/JYP-4T/四轮/1星/noise2/l_0.1_c_1.0_i_0.1.bag" />
+    </node>
+</launch>
