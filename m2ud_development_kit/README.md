@@ -101,7 +101,7 @@ a script that assists users in evaluating how sensor quality affect localization
 clouds and images generated under different noise level using this script are presented in the following figure.
 
 <div align=center>
-<img src="../assets/image/figure13.png" alt="figure13"/>
+<img src="../assets/image/figure10.png" alt="figure10"/>
 </div>
 
 
