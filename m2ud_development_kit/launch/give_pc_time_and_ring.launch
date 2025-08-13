@@ -1,5 +1,5 @@
 <launch>
 
-  <node pkg="give_pc_time_and_ring" type="give_pc_time_and_ring" name="give_pc_time_and_ring" output="screen"/>
+  <node pkg="m2ud_development_kit" type="give_pc_time_and_ring" name="give_pc_time_and_ring" output="screen"/>
 
 </launch>
