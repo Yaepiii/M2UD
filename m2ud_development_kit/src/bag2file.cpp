@@ -435,10 +435,10 @@ class Bag2File{
             for (rosbag::View::iterator it = imu_view.begin(); it != imu_view.end(); ++it){
                 sensor_msgs::ImuConstPtr imu_msg = it->instantiate<sensor_msgs::Imu>();
                 if (imu_msg != NULL){
-                    f_save_IMU_data << imu_msg->header.stamp.toSec() << ',' << imu_msg->linear_acceleration.x 
+                    f_save_IMU_data << std::fixed << std::setprecision(9) << imu_msg->header.stamp.toSec() << ',' << imu_msg->linear_acceleration.x 
                     << ',' << imu_msg->linear_acceleration.y << ',' << imu_msg->linear_acceleration.z << ','
                     << imu_msg->angular_velocity.x << ',' << imu_msg->angular_velocity.y << ',' << imu_msg->angular_velocity.z << std::endl;
-                    std::cout << "save IMU data "<< to_string(imu_msg->header.stamp.toSec())+" in" << save_root_path+"imu/data.csv" << std::endl;
+                    std::cout << "save IMU data "<< std::fixed << std::setprecision(9) << to_string(imu_msg->header.stamp.toSec())+" in" << save_root_path+"imu/data.csv" << std::endl;
                 }
             }
             f_save_IMU_data.close();
